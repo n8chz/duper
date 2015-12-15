@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214193443) do
+ActiveRecord::Schema.define(version: 20151215142858) do
 
   create_table "accounts", force: :cascade do |t|
-    t.text     "name"
-    t.text     "number"
+    t.string   "name"
+    t.string   "number"
     t.integer  "account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -24,18 +24,18 @@ ActiveRecord::Schema.define(version: 20151214193443) do
   add_index "accounts", ["account_id"], name: "index_accounts_on_account_id"
 
   create_table "entities", force: :cascade do |t|
-    t.text     "name"
+    t.string   "name"
     t.integer  "no"
     t.float    "frac"
-    t.text     "unit"
-    t.text     "street"
-    t.text     "box"
-    t.text     "city"
-    t.text     "polsub"
-    t.text     "postal"
-    t.text     "nation"
-    t.text     "phone"
-    t.text     "email"
+    t.string   "unit"
+    t.string   "street"
+    t.string   "box"
+    t.string   "city"
+    t.string   "polsub"
+    t.string   "postal"
+    t.string   "nation"
+    t.string   "phone"
+    t.string   "email"
     t.text     "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -57,9 +57,9 @@ ActiveRecord::Schema.define(version: 20151214193443) do
   add_index "entries", ["transaction_id"], name: "index_entries_on_transaction_id"
 
   create_table "items", force: :cascade do |t|
-    t.text     "barcode"
-    t.text     "brand"
-    t.text     "gendesc"
+    t.string   "barcode"
+    t.string   "brand"
+    t.string   "gendesc"
     t.float    "size"
     t.integer  "unit_id"
     t.datetime "created_at", null: false
@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 20151214193443) do
   add_index "transactions", ["entity_id"], name: "index_transactions_on_entity_id"
 
   create_table "units", force: :cascade do |t|
-    t.text     "unit"
+    t.string   "unit"
     t.float    "factor"
     t.integer  "m"
     t.integer  "kg"
