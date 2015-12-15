@@ -1,5 +1,9 @@
 #!/bin/sh 
 
+rails create duper
+
+cd duper
+
 bin/rails generate scaffold Entity name:text no:integer frac:float unit:text street:text box:text city:text polsub:text postal:text nation:text phone:text email:text url:text
 
 bin/rails generate scaffold Transaction date:datetime entity:references is_void:boolean
@@ -16,5 +20,8 @@ bin/rake db:migrate
 
 bin/rake routes
 
+mv ../duper-mockup.sh .
+
 # NOTE:  Columns listed as :text should have been :string.
 #        This was corrected in migration db/migrate/20151215142858_text_to_string.rb
+
