@@ -16,3 +16,5 @@ bin/rake db:migrate
 
 bin/rake routes
 
+# NOTE:  Columns listed as :text should have been :string.
+#        This was corrected in migration db/migrate/20151215142858_text_to_string.rb
