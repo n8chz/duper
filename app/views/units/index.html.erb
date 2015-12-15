@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Units</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Unit</th>
+      <th>Factor</th>
+      <th>M</th>
+      <th>Kg</th>
+      <th>S</th>
+      <th>A</th>
+      <th>K</th>
+      <th>Cd</th>
+      <th>Mol</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @units.each do |unit| %>
+      <tr>
+        <td><%= unit.unit %></td>
+        <td><%= unit.factor %></td>
+        <td><%= unit.m %></td>
+        <td><%= unit.kg %></td>
+        <td><%= unit.s %></td>
+        <td><%= unit.a %></td>
+        <td><%= unit.k %></td>
+        <td><%= unit.cd %></td>
+        <td><%= unit.mol %></td>
+        <td><%= link_to 'Show', unit %></td>
+        <td><%= link_to 'Edit', edit_unit_path(unit) %></td>
+        <td><%= link_to 'Destroy', unit, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Unit', new_unit_path %>

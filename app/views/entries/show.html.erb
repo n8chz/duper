@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Transaction:</strong>
+  <%= @entry.transaction %>
+</p>
+
+<p>
+  <strong>Item:</strong>
+  <%= @entry.item %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @entry.price %>
+</p>
+
+<p>
+  <strong>Qty:</strong>
+  <%= @entry.qty %>
+</p>
+
+<p>
+  <strong>Is debit:</strong>
+  <%= @entry.is_debit %>
+</p>
+
+<p>
+  <strong>Account:</strong>
+  <%= @entry.account %>
+</p>
+
+<%= link_to 'Edit', edit_entry_path(@entry) %> |
+<%= link_to 'Back', entries_path %>

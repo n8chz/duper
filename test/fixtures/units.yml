@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  unit: MyText
+  factor: 1.5
+  m: 1
+  kg: 1
+  s: 1
+  a: 1
+  k: 1
+  cd: 1
+  mol: 1
+
+two:
+  unit: MyText
+  factor: 1.5
+  m: 1
+  kg: 1
+  s: 1
+  a: 1
+  k: 1
+  cd: 1
+  mol: 1
