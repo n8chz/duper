@@ -7,7 +7,12 @@
   });
 
   // TODO: For the sake of DRY, abstract on above:
-  function friendly_reference(view, reference) {
+  function friendly_reference(view, reference, plural) {
+   $("#"+view+"_"+reference+"_id").blur(function (event) {
+     var id = event.target.value;
+     var name = $("#"+plural+" option[value="+id+"]").text();
+     $("#_"+view+"_"+reference+"_id").text(name)
+   });
   }
 
 </script>
