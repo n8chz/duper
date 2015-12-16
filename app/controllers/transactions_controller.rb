@@ -15,6 +15,7 @@ class TransactionsController < ApplicationController
   # GET /transactions/new
   def new
     @transaction = Transaction.new
+    @entities = Entity.all # Let's see if we can get away with this
   end
 
   # GET /transactions/1/edit

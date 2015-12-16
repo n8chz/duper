@@ -1,5 +1,77 @@
-<h1>New Transaction</h1>
+<script>
+$(function () {
+// Set up date field with jquery-ui's datepicker:
+  $("#date").datepicker({
+    changeMonth: true,
+    changeYear: true
+  });
+});
+</script>
 
-<%= render 'form' %>
+<%= form_for :transaction, url: "/transactions" do |f| %>
+
+ <fieldset>
+
+  <legend>new transaction</legend>
+
+  <label>date</label>
+  <%= f.text_field :date, :id => "date" %><br />
+
+  <label>other party to transaction</label>
+  <%= f.text_field :entity_id, :list => "list" %>
+  <datalist id="list">
+   <% @entities.each do |entity| %>
+    <%= content_tag "option", entity.name, value: entity.id %>
+   <% end %>
+  </datalist>
+
+ </fieldset>
+
+ <fieldset>
+  <table>
+   <thead>
+    <tr>
+     <th>
+      bar code
+     </th>
+     <th>
+      brand
+     </th>
+     <th>
+      generic description
+     </th>
+     <th>
+      size
+     </th>
+     <th>
+      units
+     </th>
+     <th>
+      qty
+     </th>
+     <th>
+      @
+     </th>
+     <th>
+      debit
+     </th>
+     <th>
+      credit
+     </th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr>
+     <td>
+     </td>
+     <td>
+      pan
+     </td>
+    </tr>
+   </tbody>
+  </table>
+ </fieldset>
+
+<% end %>
 
 <%= link_to 'Back', transactions_path %>
