@@ -1,5 +1,47 @@
-<h1>New Item</h1>
+<script>
 
-<%= render 'form' %>
+  $("#item_unit_id").blur(function (event) {
+    var id = event.target.value;
+    var name = $("#units option[value="+id+"]").text();
+    $("#_item_unit_id").text(name)
+  });
 
-<%= link_to 'Back', items_path %>
+  // TODO: For the sake of DRY, abstract on above:
+  function friendly_reference(view, reference) {
+  }
+
+</script>
+
+<%= form_for :item, url: "/items" do |f| %>
+
+ <fieldset>
+
+  <legend>new item</legend>
+
+  <label>barcode</label>
+  <%= f.text_field :barcode %><br />
+
+  <label>brand</label>
+  <%= f.text_field :brand %>
+  <label>generic description</label>
+  <%= f.text_field :gendesc %><br />
+
+  <label>size</label>
+  <%= f.text_field :size %>
+  <label>units</label>
+  <%= f.text_field :unit_id, :list => "units" %>
+  <datalist id="units">
+   <% @units.each do |unit| %>
+    <%= content_tag "option", unit.unit, value: unit.id %>
+   <% end %>
+  </datalist>
+  <span id="_item_unit_id"></span><br />
+
+  <%= f.submit %>
+
+ </fieldset>
+
+<% end %>
+
+<%= link_to "Back", items_path %>
+
