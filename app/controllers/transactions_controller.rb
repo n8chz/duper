@@ -15,7 +15,12 @@ class TransactionsController < ApplicationController
   # GET /transactions/new
   def new
     @transaction = Transaction.new
-    @entities = Entity.all # Let's see if we can get away with this
+    # Make data available for option pulldowns:
+    # TODO At some point (when massively many items are on file)
+    # we will do this w. AJAX
+    @entities = Entity.all
+    @items = Item.all
+    @accounts = Account.all
   end
 
   # GET /transactions/1/edit

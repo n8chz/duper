@@ -25,6 +25,7 @@ class AccountsController < ApplicationController
   # POST /accounts
   # POST /accounts.json
   def create
+    puts account_params
     @account = Account.new(account_params)
 
     respond_to do |format|
