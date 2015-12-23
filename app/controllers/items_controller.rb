@@ -7,7 +7,7 @@ class ItemsController < ApplicationController
     @items = Item.all
     @units = Unit.all
 
-    # see http://stackoverflow.com/a/3222639/948073 
+    # h/t http://stackoverflow.com/a/3222639/948073 
     respond_to do |format|
      format.json {
       puts "foo"

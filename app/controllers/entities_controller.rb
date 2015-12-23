@@ -5,6 +5,17 @@ class EntitiesController < ApplicationController
   # GET /entities.json
   def index
     @entities = Entity.all
+    respond_to do |format|
+     format.json {
+      descriptions = @entities.map { |entity|
+       {label: entity.name, value: entity.id}
+      }
+      if params[:term]
+       descriptions.select! { |desc| desc[:label].index(params[:term]) }
+      end
+      render json: descriptions.to_json
+     }
+    end
   end
 
   # GET /entities/1

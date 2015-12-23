@@ -22,13 +22,22 @@
   <label>date</label>
   <%= f.text_field :date, :id => "date" %><br />
 
+  <script>
+   $(function () {
+	$("#entities").autocomplete({
+          // source: items, // Use this value for source if not fetching item list from backend.
+          source: "<%= entities_path(:json) %>",
+          select: function (event, ui) {
+           $("#entities").val(ui.item.label);
+           $("#transaction_entity_id").val(ui.item.value);
+           return false;
+          }
+        });
+   });
+  </script>
   <label>other party to transaction</label>
-  <%= f.text_field :entity_id, :list => "entities", :style => "width: 3em" %>
-  <datalist id="entities">
-   <% @entities.each do |entity| %>
-    <%= content_tag "option", entity.name, value: entity.id, :style => "width: 30em" %>
-   <% end %>
-  </datalist>
+  <input id="entities" />
+  <%= f.text_field :entity_id, :type => "hidden" %>
   <span id="_transaction_entity_id"></span>
 
  </fieldset>
@@ -59,14 +68,14 @@
    </thead>
    <tbody>
     <tr>
+     <td>
      <script>
       // see http://jqueryui.com/autocomplete/#remote-with-cache 
       // see http://stackoverflow.com/a/3222639/948073
 
       $(function () {
 
-        var cache = {};
-
+/*
 	var items = [
 	 <% @items.each do |item| %>
 	  <% units = @units.select {|unit| item.unit_id == unit.id} %>
@@ -81,13 +90,12 @@
             value: "-1",
             label: "create new" 
            }
-	 
 	];
-
+*/
 
         // see http://jqueryui.com/autocomplete/#custom-data 
 	$("#items").autocomplete({
-          // source: items,
+          // source: items, // Use this value for source if not fetching item list from backend.
           source: "<%= items_path(:json) %>",
           select: function (event, ui) {
            $("#items").val(ui.item.label);
@@ -99,7 +107,6 @@
       });
 
      </script>
-     <td>
      <input id="items" />
      <input id="items-id" name="entry_1[item_id]" type="hidden" />
      </td>
