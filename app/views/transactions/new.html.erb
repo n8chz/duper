@@ -9,11 +9,7 @@ $(function () {
     changeYear: true
   });
 
-  $("#transaction_entity_id").blur(function (event) {
-    var id = event.target.value;
-    var name = $("#entities option[value="+id+"]").text();
-    $("#_transaction_entity_id").text(name);
-  });
+
 
 });
 
@@ -65,15 +61,50 @@ $(function () {
    </thead>
    <tbody>
     <tr>
+     <script>
+      // see http://jqueryui.com/autocomplete/#custom-data 
+      // see http://jqueryui.com/autocomplete/#remote-with-cache 
+      // see http://stackoverflow.com/a/3222639/948073
+
+      $(function () {
+
+        var cache = {};
+
+	var items = [
+	 <% @items.each do |item| %>
+	  <% units = @units.select {|unit| item.unit_id == unit.id} %>
+	  <% unit = units.length > 0 ? units[0].unit : "" %>
+	  <% item_summary = "#{item.brand} #{item.gendesc}, #{item.size} #{unit} (#{item.barcode})" %>
+           {
+            value: "<%= item.id %>",
+            label: "<%= item_summary %>"
+           },
+	 <% end %>
+           {
+            value: "-1",
+            label: "create new" 
+           }
+	 
+	];
+
+
+	$("#items").autocomplete({
+          // source: items,
+          source: "<%= items_path(:json) %>",
+          select: function (event, ui) {
+           $("#items").val(ui.item.label);
+           $("#items-id").val(ui.item.value);
+           return false;
+          }
+        });
+
+      });
+
+     </script>
      <td>
-      <input name="entry_1[item_id]" list="items" />
+     <input id="items" />
+     <input id="items-id" name="entry_1[item_id]" type="hidden" />
      </td>
-     <datalist id="items">
-      <% @items.each do |item| %>
-       item_summary = "#{item.brand} #{item.gendesc}, #{item.qty} #{item.units} (#{item.barcode})"
-       <%= content_tag "option", item_summary, value: item.id %>
-      <% end %>
-     </datalist>
      <td>
       <input name="entry_1[qty]" />
      </td>
@@ -83,7 +114,7 @@ $(function () {
      <td>
       <input name="entry_1[account_id]" list="accounts" />
      </td>
-     <datalist id="items">
+     <datalist id="accounts">
       <% @accounts.each do |account|  %>
        <%= content_tag "option", account.account_pathname, value: account.id  %>
       <% end %>
@@ -102,3 +133,4 @@ $(function () {
 <% end %>
 
 <%= link_to 'Back', transactions_path %>
+

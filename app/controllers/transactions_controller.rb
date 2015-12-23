@@ -20,6 +20,7 @@ class TransactionsController < ApplicationController
     # we will do this w. AJAX
     @entities = Entity.all
     @items = Item.all
+    @units = Unit.all
     @accounts = Account.all
   end
 

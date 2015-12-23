@@ -5,6 +5,28 @@ class ItemsController < ApplicationController
   # GET /items.json
   def index
     @items = Item.all
+    @units = Unit.all
+
+    # see http://stackoverflow.com/a/3222639/948073 
+    respond_to do |format|
+     format.json {
+      puts "foo"
+      descriptions = @items.map { |item|
+       units = @units.select { |u|
+        u.id == item.unit_id
+       }
+       unit = ""
+       unit = units[0].unit if units.length > 0
+       puts unit
+       {label: "#{item.brand} #{item.gendesc}, #{item.size} #{unit} #{item.barcode}", value: "item.id"}
+      }
+      if params[:term]
+       descriptions.select! { |desc| desc[:label].index(params[:term]) }
+      end
+      # { render :json =>  descriptions.to_json }
+      render json: descriptions.to_json
+     }
+    end
   end
 
   # GET /items/1

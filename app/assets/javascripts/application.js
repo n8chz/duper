@@ -12,6 +12,9 @@
 //
 //= require jquery
 //= require jquery-ui/datepicker
+//= require jquery-ui/autocomplete
 //= require jquery_ujs
 //= require turbolinks
+//= require twitter/typeahead.min
 //= require_tree .
+
