@@ -17,13 +17,11 @@ class ItemsController < ApplicationController
        }
        unit = ""
        unit = units[0].unit if units.length > 0
-       puts unit
-       {label: "#{item.brand} #{item.gendesc}, #{item.size} #{unit} #{item.barcode}", value: "item.id"}
+       {label: "#{item.brand} #{item.gendesc}, #{item.size} #{unit} #{item.barcode}", value: "#{item.id}"}
       }
       if params[:term]
        descriptions.select! { |desc| desc[:label].index(params[:term]) }
       end
-      # { render :json =>  descriptions.to_json }
       render json: descriptions.to_json
      }
     end
