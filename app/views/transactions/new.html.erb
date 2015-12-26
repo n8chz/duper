@@ -1,141 +1,37 @@
 
 <%= form_for :transaction, url: "/transactions" do |f| %>
 
- <fieldset>
+ <fieldset id="pos">
 
-  <legend>new transaction</legend>
-
-  <script>
-
-  $(function () {
-
-    // Set up date field with jquery-ui's datepicker:
-    $("#date").datepicker({
-      changeMonth: true,
-      changeYear: true
-    });
-
-  });
-
-  </script>
-
-  <label>date</label>
+  <label for="date">date</label>
   <%= f.text_field :date, :id => "date" %><br />
-
-  <script>
-   $(function () {
-	$("#entities").autocomplete({
-          // source: items, // Use this value for source if not fetching item list from backend.
-          source: "<%= entities_path(:json) %>",
-          select: function (event, ui) {
-           $("#entities").val(ui.item.label);
-           $("#transaction_entity_id").val(ui.item.value);
-           return false;
-          }
-        });
-   });
-  </script>
+  <!--
+   For input elements for foreign key properties, the actual Rails input
+   element (that will be included in params) is a hidden element, so the
+   autocomplete element for user input can display "friendly" names instead of
+   numeric keys.
+  -->
   <label>other party to transaction</label>
-  <input id="entities" />
-  <%= f.text_field :entity_id, :type => "hidden" %>
-  <span id="_transaction_entity_id"></span>
+  <input data-value="entity_value" data-source="<%= entities_path(:json) %>">
+  <%= f.text_field :entity_id, :id => "entity_value", :type => "hidden" %>
+  <!--
+   the "new_button" class pertains to those inputs for which a new instance of
+   a model referenced by the transaction model may be needed.
+  -->
+  <button type="button" id="new_entity" class="new_button">+</button>
 
  </fieldset>
 
- <fieldset id="entries">
-  <table>
-   <thead>
-    <tr>
-     <th>
-      item
-     </th>
-     <th>
-      qty
-     </th>
-     <th>
-      @
-     </th>
-     <th>
-      account
-     </th>
-     <th>
-      debit
-     </th>
-     <th>
-      credit
-     </th>
-    </tr>
-   </thead>
-   <tbody>
-    <tr>
-     <td>
-     <script>
-      // see http://jqueryui.com/autocomplete/#remote-with-cache 
-      // see http://stackoverflow.com/a/3222639/948073
+ <fieldset id="payments">
+  <fieldset class="payment_method">
+   <!-- account -->
+   <!-- amount -->
+  </fieldset>
+  <button type="button">additonal payment method</button>
+ </fieldset>
 
-      $(function () {
-
-/*
-	var items = [
-	 <% @items.each do |item| %>
-	  <% units = @units.select {|unit| item.unit_id == unit.id} %>
-	  <% unit = units.length > 0 ? units[0].unit : "" %>
-	  <% item_summary = "#{item.brand} #{item.gendesc}, #{item.size} #{unit} (#{item.barcode})" %>
-           {
-            value: "<%= item.id %>",
-            label: "<%= item_summary %>"
-           },
-	 <% end %>
-           {
-            value: "-1",
-            label: "create new" 
-           }
-	];
-*/
-
-        // see http://jqueryui.com/autocomplete/#custom-data 
-	$("#items").autocomplete({
-          // source: items, // Use this value for source if not fetching item list from backend.
-          source: "<%= items_path(:json) %>",
-          select: function (event, ui) {
-           $("#items").val(ui.item.label);
-           $("#items-id").val(ui.item.value);
-           return false;
-          }
-        });
-
-      });
-
-     </script>
-     <input id="items" />
-     <input id="items-id" name="entry_1[item_id]" type="hidden" />
-     </td>
-     <td>
-      <input name="entry_1[qty]" />
-     </td>
-     <td>
-      <input name="entry_1[price]" />
-     </td>
-     <td>
-      <input name="entry_1[account_id]" list="accounts" />
-     </td>
-     <datalist id="accounts">
-      <% @accounts.each do |account|  %>
-       <%= content_tag "option", account.account_pathname, value: account.id  %>
-      <% end %>
-     </datalist>
-     <td>
-      <input id="debit" />
-     </td>
-     <td>
-      <input id="credit" />
-     </td>
-    </tr>
-   </tbody>
-  </table>
+ <fieldset id="purchases">
  </fieldset>
 
 <% end %>
-
-<%= link_to 'Back', transactions_path %>
 
