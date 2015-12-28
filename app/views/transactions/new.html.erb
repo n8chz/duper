@@ -1,9 +1,10 @@
-
 <%= form_for :transaction, url: "/transactions" do |f| %>
 
  <fieldset id="pos">
+  <legend>point of sale information</legend>
 
   <label for="date">date</label>
+
   <%= f.text_field :date, :id => "date" %><br />
   <!--
    For input elements for foreign key properties, the actual Rails input
@@ -12,25 +13,56 @@
    numeric keys.
   -->
   <label>other party to transaction</label>
-  <input data-value="entity_value" data-source="<%= entities_path(:json) %>">
-  <%= f.text_field :entity_id, :id => "entity_value", :type => "hidden" %>
-  <!--
-   the "new_button" class pertains to those inputs for which a new instance of
-   a model referenced by the transaction model may be needed.
-  -->
-  <button type="button" id="new_entity" class="new_button">+</button>
+  <%= autofill_inputs "transaction", 0, "entity" %>
 
  </fieldset>
 
  <fieldset id="payments">
-  <fieldset class="payment_method">
+  <legend>payments</legend>
+
+  <!-- data-index even for credit, odd for debit -->
+  <fieldset class="payment_method" id="payment_method" data-index="0">
+
    <!-- account -->
+   <label>paid from account</label>
+   <%= autofill_inputs "entry", 0, "account" %>
    <!-- amount -->
+   <label>credit amount</label>
+   <input name="entry[0][price]" />
+
   </fieldset>
-  <button type="button">additonal payment method</button>
+
+  <button type="button" data-fieldset-type="payment_method">additonal payment method</button>
+
  </fieldset>
 
  <fieldset id="purchases">
+  <legend>purchaes this transaction</legend>
+  <table><thead>
+   <tr><th>item</th><th>price</th><th>qty</th><th>account</th><th>debit amount</th></tr>
+  </thead><tbody>
+
+  <tr id="item" class="entry_item" data-index="1">
+   <!-- item -->
+   <td>
+    <input data-value="item_value_1" data-source="<%= items_path(:json) %>" />
+    <button type="button" id="new_item" class="new_button">+</button>
+    <input type="hidden" id="item_value_1" name="entry[1][item_id]" />
+   </td>
+   <!-- price -->
+   <td><input name="entry[1][price]" /></td>
+   <!-- qty -->
+   <td><input name="entry[1][qty]" /></td>
+   <!-- acct -->
+   <td>
+    <%= autofill_inputs "entry", 1, "account" %>
+   </td>
+  </tr>
+
+  <tbody></table>
+
+  <button type="button" data-fieldset-type="entry_item">additional item</button>
+
  </fieldset>
 
 <% end %>
