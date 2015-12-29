@@ -3,24 +3,24 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ ->
-  acInputs = $("input[data-value]")
-  acInputs.map ->
+
+  # Set up input elements for foreign keys as autofill, so we can see the
+  # referenced objects as descriptive strings rather than abstract keys
+  addAutocomplete = ->
     $(this).autocomplete
       source: $(this).data("source")
       select: (event, ui) ->
         $(this).val ui.item.label
-        $("#"+$(this).data("value")).val ui.item.value
+        # following line is a kludge, assumes next input is value
+        $(this).next("input").val ui.item.value
         false
 
-# $(".replicator").click ->
-#   parent = $(this).parent()
-#   newFieldset = parent.find(".replic").last().clone()
-#   newFieldset.find("input[name]").each ->
-#     oldName = $(this).attr("name")
-#     newName = oldName.replace /\[(\d*)\]/ (match, p1) -> "["+(Number(p1)+1)+"]"
-#     $(this).attr("name", newName)
-#   parent.append(newFieldset)
+  # Set up input elements for foreign keys as autofill, so we can see the
+  # referenced objects as descriptive strings rather than abstract keys
+  $(".autocomplete").each addAutocomplete
 
+  # Add event listeners to the buttons which will be used to create additional
+  # credit and debit entries for the transaction about to be created
   $(".replicator").click ->
     parent = $(this).parent()
     newFieldset = parent.find(".replic").last().clone()
@@ -33,5 +33,7 @@ $ ->
         [left, right] = oldName.split(seek)
         newName = left+"["+index+"]"+right
         $(this).attr("name", newName)
+        $(this).removeAttr("id")
     $(this).before(newFieldset)
+    newFieldset.find(".autocomplete").each addAutocomplete
         

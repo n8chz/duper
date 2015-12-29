@@ -1,4 +1,5 @@
 <%= form_for :transaction, url: "/transactions" do |f| %>
+<legend>enter new purchase transaction</legend>
 
  <fieldset id="pos">
   <legend>point of sale information</legend>
@@ -45,9 +46,7 @@
   <tr id="item" class="entry_item replic" data-index="1">
    <!-- item -->
    <td>
-    <input data-value="item_value_1" data-source="<%= items_path(:json) %>" />
-    <button type="button" id="new_item" class="new_button">+</button>
-    <input type="hidden" id="item_value_1" name="entry[1][item_id]" />
+    <%= autofill_inputs "entry", 0, "item" %>
    </td>
    <!-- price -->
    <td><input name="entry[1][price]" /></td>
