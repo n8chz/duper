@@ -21,7 +21,7 @@
   <legend>payments</legend>
 
   <!-- data-index even for credit, odd for debit -->
-  <fieldset class="payment_method" id="payment_method" data-index="0">
+  <fieldset class="payment_method replic" id="payment_method" data-index="0">
 
    <!-- account -->
    <label>paid from account</label>
@@ -32,7 +32,7 @@
 
   </fieldset>
 
-  <button type="button" data-fieldset-type="payment_method">additonal payment method</button>
+  <button class="replicator" type="button" data-fieldset-type="payment_method">additonal payment method</button>
 
  </fieldset>
 
@@ -42,7 +42,7 @@
    <tr><th>item</th><th>price</th><th>qty</th><th>account</th><th>debit amount</th></tr>
   </thead><tbody>
 
-  <tr id="item" class="entry_item" data-index="1">
+  <tr id="item" class="entry_item replic" data-index="1">
    <!-- item -->
    <td>
     <input data-value="item_value_1" data-source="<%= items_path(:json) %>" />
@@ -61,7 +61,7 @@
 
   <tbody></table>
 
-  <button type="button" data-fieldset-type="entry_item">additional item</button>
+  <button class="replicator" type="button" data-fieldset-type="entry_item">additional item</button>
 
  </fieldset>
 
