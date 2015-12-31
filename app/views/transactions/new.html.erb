@@ -22,7 +22,7 @@
   <legend>payments</legend>
 
   <!-- data-index even for credit, odd for debit -->
-  <fieldset class="payment_method replic" id="payment_method" data-index="0">
+  <fieldset class="payment_method replic" id="payment_method">
 
    <!-- account -->
    <label>paid from account</label>
@@ -43,7 +43,7 @@
    <tr><th>item</th><th>price</th><th>qty</th><th>account</th><th>debit amount</th></tr>
   </thead><tbody>
 
-  <tr id="item" class="entry_item replic" data-index="1">
+  <tr id="item" class="entry_item replic">
    <!-- item -->
    <td>
     <%= autofill_inputs "entry", 0, "item" %>
@@ -65,4 +65,8 @@
  </fieldset>
 
 <% end %>
+
+<div style="display: none; position: absolute; width: 80%; height: 80%; top: 10%; left: 10%; z-index: 22; background-color: rgba(255, 255, 255, 1); border: 2px solid black; padding: 1em;">
+ <%= render "entities/new" %>
+</div>
 

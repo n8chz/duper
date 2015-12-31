@@ -7,16 +7,11 @@ module ApplicationHelper
  def autofill_inputs model, index, fkey
   name = "#{model}[#{index}][#{fkey}_id]"
   source = "/#{fkey.pluralize}.json"
-  group =
-   text_field_tag nil, nil, :data => {source: source}, :class => "autocomplete"
-  group << "\n"
+  group = text_field nil, nil, :data => {source: source}, :class => "autocomplete"
+  group << (text_field name, nil, :type => "hidden")
   group << (button_tag "+", :data => {class: "#{fkey}"}, :type => "button", :title => "create new #{fkey}")
-  group << "\n"
-  group << (text_field_tag name, nil, :type => "hidden")
   group
  end
 
- def entity_form
- end
-
 end
+

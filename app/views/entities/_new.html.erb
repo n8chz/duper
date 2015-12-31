@@ -1,0 +1,39 @@
+<%= form_for :entity do |f| %>
+ <legend>new business entity</legend>
+ <fieldset>
+  <legend>name</legend>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+ </fieldset>
+
+ <fieldset>
+  <legend>address</legend>
+  <%= f.label :no, "number" %>
+  <%= f.text_field :no %>
+  <%= f.label :frac, "fraction, e.g. 1/2" %>
+  <%= f.text_field :frac %>
+  <%= f.label :street, "street" %>
+  <%= f.text_field :street %>
+  <%= f.label :unit, "unit, e.g. Suite 100" %>
+  <%= f.text_field :unit %><br />
+  <%= f.label :city, "city" %>
+  <%= f.text_field :city %>
+  <%= f.label :polsub, "state (or province, etc.)" %>
+  <%= f.text_field :polsub %><br />
+  <%= f.label :nation , "country" %>
+  <%= f.text_field :nation%>
+ </fieldset>
+
+ <fieldset>
+  <legend>other contact info</legend>
+  <%= f.label :phone, "phone" %>
+  <%= f.text_field :phone %><br />
+  <%= f.label :email, "email" %>
+  <%= f.text_field :phone %><br />
+  <%= f.label :url, "url" %>
+  <%= f.text_field :url%>
+ </fieldset>
+
+ <%= f.submit %>
+
+<%  end %>
