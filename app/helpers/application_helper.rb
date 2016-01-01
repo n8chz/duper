@@ -9,7 +9,7 @@ module ApplicationHelper
   source = "/#{fkey.pluralize}.json"
   group = text_field nil, nil, :data => {source: source}, :class => "autocomplete"
   group << (text_field name, nil, :type => "hidden")
-  group << (button_tag "+", :data => {class: "#{fkey}"}, :type => "button", :title => "create new #{fkey}")
+  group << (button_tag "+", :data => {class: "#{fkey}_popup"}, :type => "button", :title => "create new #{fkey}", :class => "plus")
   group
  end
 

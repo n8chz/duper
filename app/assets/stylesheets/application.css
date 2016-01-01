@@ -15,3 +15,18 @@
  *= require jquery-ui/datepicker
  *= require jquery-ui/autocomplete
  */
+
+.popup {
+ display: none;
+ position: absolute;
+ width: 80%;
+ height: 80%;
+ overflow: scroll;
+ top: 10%;
+ left: 10%;
+ z-index: 22;
+ background-color: rgba(255, 255, 255, 1);
+ border: 2px solid black;
+ padding: 1em;
+}
+

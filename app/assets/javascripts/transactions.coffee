@@ -36,4 +36,8 @@ $ ->
         $(this).removeAttr("id")
     $(this).before(newFieldset)
     newFieldset.find(".autocomplete").each addAutocomplete
-        
+
+  # Add event listeners to .plus buttons so their associated modal forms will be made visible.
+  $(".plus").click ->
+    $("#"+($(this).data "class")).show()
+
