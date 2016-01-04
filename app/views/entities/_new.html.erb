@@ -1,4 +1,4 @@
-<%= form_for :entity do |f| %>
+<%= form_for :entity, url: "/entities" do |f| %>
  <legend>new business entity</legend>
  <fieldset>
   <legend>name</legend>
@@ -16,10 +16,14 @@
   <%= f.text_field :street %>
   <%= f.label :unit, "unit, e.g. Suite 100" %>
   <%= f.text_field :unit %><br />
+  <%= f.label :box, "box" %>
+  <%= f.text_field :box %><br />
   <%= f.label :city, "city" %>
   <%= f.text_field :city %>
   <%= f.label :polsub, "state (or province, etc.)" %>
-  <%= f.text_field :polsub %><br />
+  <%= f.text_field :polsub %>
+  <%= f.label :postal, "zip code (or other postal code)" %>
+  <%= f.text_field :postal %><br />
   <%= f.label :nation , "country" %>
   <%= f.text_field :nation%>
  </fieldset>

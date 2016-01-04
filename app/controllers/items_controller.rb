@@ -9,6 +9,7 @@ class ItemsController < ApplicationController
 
     # h/t http://stackoverflow.com/a/3222639/948073 
     respond_to do |format|
+     format.html { @items = Item.all }
      format.json {
       puts "foo"
       descriptions = @items.map { |item|
@@ -45,6 +46,7 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.json
   def create
+    puts "request.referrer: " << request.referrer
     @item = Item.new(item_params)
 
     respond_to do |format|

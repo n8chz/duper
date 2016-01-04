@@ -41,3 +41,7 @@ $ ->
   $(".plus").click ->
     $("#"+($(this).data "class")).show()
 
+  # Make forms in popups remote, see http://edgeguides.rubyonrails.org/working_with_javascript_in_rails.html#form-for
+  $(".popup>form").each ->
+    $(this).data "remote", "true"
+    # TODO put the id and name from response into appropriate input elements
