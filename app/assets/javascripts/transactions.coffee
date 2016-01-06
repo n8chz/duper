@@ -39,9 +39,21 @@ $ ->
 
   # Add event listeners to .plus buttons so their associated modal forms will be made visible.
   $(".plus").click ->
-    $("#"+($(this).data "class")).show()
+    $("#"+($(this).data "class")+"_popup").show()
+    dest = $(this).data "destination"
+    descInput = $("#"+dest);
+    $(document).ajaxSuccess (event, xhr, settings) ->
+      obj = JSON.parse xhr.responseText
+      $("#"+dest).val obj.name
+      $("#"+dest+"_id").val obj.id
 
   # Make forms in popups remote, see http://edgeguides.rubyonrails.org/working_with_javascript_in_rails.html#form-for
   $(".popup>form").each ->
     $(this).data "remote", "true"
-    # TODO put the id and name from response into appropriate input elements
+    # add .json to end of action attribute
+    oldAction = $(this).attr "action"
+    $(this).attr "action", oldAction+".json"
+
+  # Make popups stay up only until done entering data
+  $(".popup-submit").click ->
+    $(this).closest("div").hide()
