@@ -5,12 +5,12 @@ module ApplicationHelper
  # button is for if creation of a new object is necessary because the
  # referenced object hasn't been created yet.
  def autofill_inputs model, index, fkey
-  name = "#{model}[#{index}][#{fkey}_id]"
+  name = "#{model}" << (index ? "[#{index}]" : "") << "[#{fkey}_id]"
   id = "#{model}_#{index}_#{fkey}"
   source = "/#{fkey.pluralize}.json"
-  group = text_field nil, nil, :data => {source: source}, :class => "autocomplete", :id => id
+  group = text_field nil, nil, :data => {source: source}, :class => "autocomplete", :id => id, :name => nil
   group << (text_field nil, nil, :type => "hidden", :name => name, :id => "#{id}_id")
-  group << (button_tag "+", :data => {destination: id, class: fkey}, :type => "button", :title => "create new #{fkey}", :class => "plus")
+  group << (button_tag "+", :data => {destination: id, class: fkey}, :type => "button", :title => "create new #{fkey}", :class => "plus") if model != fkey
   group
  end
 

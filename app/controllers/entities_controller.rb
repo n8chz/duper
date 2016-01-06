@@ -6,6 +6,7 @@ class EntitiesController < ApplicationController
   def index
     @entities = Entity.all
     respond_to do |format|
+     format.html { @items = Item.all }
      format.json {
       descriptions = @entities.map { |entity|
        {label: entity.name, value: entity.id}
