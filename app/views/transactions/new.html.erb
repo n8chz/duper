@@ -46,7 +46,7 @@
   <tr id="item" class="entry_item replic">
    <!-- item -->
    <td>
-    <%= autofill_inputs "entry", 0, "item" %>
+    <%= autofill_inputs "entry", 1, "item" %>
    </td>
    <!-- price -->
    <td><input name="entry[1][price]" /></td>
@@ -74,5 +74,8 @@
 <!-- TODO: Don't repeat yourself: -->
 <div id="account_popup" class="popup">
  <%= render "accounts/new" %>
+</div>
+<div id="item_popup" class="popup">
+ <%= render "items/new" %>
 </div>
 

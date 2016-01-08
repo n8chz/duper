@@ -2,6 +2,13 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+placeholder = (klass, obj) ->
+  switch klass
+    when "entity" then obj.name
+    when "account" then obj.name
+    when "item" then "#{obj.brand} #{obj.gendesc} #{obj.size} #{obj.unit}"
+    else "???"
+
 $ ->
 
   # Set up input elements for foreign keys as autofill, so we can see the
@@ -46,10 +53,12 @@ $ ->
     $(document).ajaxSuccess (event, xhr, settings) ->
       if settings.url == (destInput.data "source")
         obj = JSON.parse xhr.responseText
-        destInput.val obj.name
+        # insert "friendly description" in visible field:
+        destInput.val placeholder dataClass, obj
         $("#"+dest+"_id").val obj.id
 
-  # Make forms in popups remote, see http://edgeguides.rubyonrails.org/working_with_javascript_in_rails.html#form-for
+  # Make forms in popups remote,
+  # see http://edgeguides.rubyonrails.org/working_with_javascript_in_rails.html#form-for
   $(".popup>form").each ->
     $(this).data "remote", "true"
     # add .json to end of action attribute
