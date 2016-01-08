@@ -3,7 +3,7 @@
  <fieldset>
   <legend>name</legend>
   <%= f.label :name %>
-  <%= f.text_field :name %>
+  <%= f.text_field :name, :autofocus => "true" %>
  </fieldset>
 
  <fieldset>
@@ -38,6 +38,6 @@
   <%= f.text_field :url%>
  </fieldset>
 
- <%= f.submit :class => "popup-submit" %>
+ <%= f.submit %>
 
 <%  end %>
