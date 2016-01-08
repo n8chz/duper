@@ -45,6 +45,8 @@
 
   <tr id="item" class="entry_item replic">
    <!-- item -->
+   <!-- TODO: increment numbers in id attributes, too -->
+   <!-- TODO: blank out filled-in fields, too -->
    <td>
     <%= autofill_inputs "entry", 1, "item" %>
    </td>
@@ -56,6 +58,9 @@
    <td>
     <%= autofill_inputs "entry", 1, "account" %>
    </td>
+   <td>
+    <input id="entry_1_debit" disabled />
+   </td>
   </tr>
 
   <tbody></table>
@@ -64,7 +69,7 @@
 
  </fieldset>
 
- <%= f.submit %>
+ <%= f.submit "post transaction" %>
 
 <% end %>
 
