@@ -2,12 +2,30 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+# Generate friendly display strings for result of create.json
+# so newly created objects can look like previously existing
+# ones selected via autocomplete:
 placeholder = (klass, obj) ->
   switch klass
     when "entity" then obj.name
     when "account" then obj.name
     when "item" then "#{obj.brand} #{obj.gendesc} #{obj.size} #{obj.unit}"
     else "???"
+
+# Increment integer substrings of id and name attributes by 2
+incrementIndex = (fieldset) ->
+  # Clear text entered on previous line
+  fieldset.find("input").val ""
+  ["name", "id", "data-destination"].forEach (attrName) ->
+    fieldset.find("[#{attrName}]").each ->
+      old = $(this).attr(attrName)
+      # oldIndex = old.match /\d?/g
+      oldIndex = /\d+/.exec old
+      if oldIndex
+        newIndex = Number(oldIndex[0])+2
+        [left, right] = old.split(oldIndex)
+        $(this).attr(attrName, left+newIndex+right)
+  fieldset
 
 $ ->
 
@@ -30,17 +48,7 @@ $ ->
   # credit and debit entries for the transaction about to be created
   $(".replicator").click ->
     parent = $(this).parent()
-    newFieldset = parent.find(".replic").last().clone()
-    seek = /\[\d*\]/
-    newFieldset.find("[name]").each ->
-      oldName = $(this).attr("name")
-      matchResult = oldName.match(seek)
-      if matchResult
-        index = Number(matchResult[0].slice(1, -1))+2
-        [left, right] = oldName.split(seek)
-        newName = left+"["+index+"]"+right
-        $(this).attr("name", newName)
-        $(this).removeAttr("id")
+    newFieldset = incrementIndex(parent.find(".replic").last().clone())
     $(this).before(newFieldset)
     newFieldset.find(".autocomplete").each addAutocomplete
 
