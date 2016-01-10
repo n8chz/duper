@@ -12,3 +12,5 @@ TODO:
 * Change /accounts view to display nice traditional two column chart of accounts
 
 * Make items/new view redirect back to itself for easier bulk data entry sessions
+
+* Follow steps in http://stackoverflow.com/a/23406453/948073 to change name of Transaction model, as we seem to have fallen into the trap described at http://stackoverflow.com/q/28698986/948073

@@ -31,7 +31,14 @@ class TransactionsController < ApplicationController
   # POST /transactions
   # POST /transactions.json
   def create
-    @transaction = Transaction.new(transaction_params)
+    params.permit!
+    @transaction = Transaction.new(params["transaction"])
+    @transaction.save # see http://stackoverflow.com/a/2618902/948073 
+    params["entry"].values.each do |entry|
+      entry["transaction_id"] = @transaction.id
+      puts entry
+      Entry.new(entry).save
+    end
 
     respond_to do |format|
       if @transaction.save

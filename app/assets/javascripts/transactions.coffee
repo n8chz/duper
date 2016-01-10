@@ -29,6 +29,10 @@ incrementIndex = (fieldset) ->
 
 $ ->
 
+  $("#date").datepicker
+    changeMonth: true
+    changeYear: true
+
   # Set up input elements for foreign keys as autofill, so we can see the
   # referenced objects as descriptive strings rather than abstract keys
   addAutocomplete = ->

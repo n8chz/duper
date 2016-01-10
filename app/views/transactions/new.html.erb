@@ -14,7 +14,7 @@
    numeric keys.
   -->
   <label>other party to transaction</label>
-  <%= autofill_inputs "transaction", 0, "entity" %>
+  <%= autofill_inputs "transaction", nil, "entity" %>
 
  </fieldset>
 
@@ -29,7 +29,7 @@
    <%= autofill_inputs "entry", 0, "account" %>
    <!-- amount -->
    <label>credit amount</label>
-   <input name="entry[0][price]" />
+   <input name="entry[0][price]" class="money" />
 
   </fieldset>
 
@@ -51,7 +51,7 @@
     <%= autofill_inputs "entry", 1, "item" %>
    </td>
    <!-- price -->
-   <td><input name="entry[1][price]" /></td>
+   <td><input name="entry[1][price]" class="money" /></td>
    <!-- qty -->
    <td><input name="entry[1][qty]" /></td>
    <!-- acct -->
