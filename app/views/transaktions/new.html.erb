@@ -1,5 +1,5 @@
-<%= form_for :transaction, url: "/transactions" do |f| %>
-<legend>enter new purchase transaction</legend>
+<%= form_for :transaktion, url: "/transaktions" do |f| %>
+<legend>enter new purchase transaktion</legend>
 
  <fieldset id="pos">
   <legend>point of sale information</legend>
@@ -13,8 +13,8 @@
    autocomplete element for user input can display "friendly" names instead of
    numeric keys.
   -->
-  <label>other party to transaction</label>
-  <%= autofill_inputs "transaction", nil, "entity" %>
+  <label>other party to transaktion</label>
+  <%= autofill_inputs "transaktion", nil, "entity" %>
 
  </fieldset>
 
@@ -38,7 +38,7 @@
  </fieldset>
 
  <fieldset id="purchases">
-  <legend>purchaes this transaction</legend>
+  <legend>purchaes this transaktion</legend>
   <table><thead>
    <tr><th>item</th><th>price</th><th>qty</th><th>account</th><th>debit amount</th></tr>
   </thead><tbody>
@@ -69,7 +69,7 @@
 
  </fieldset>
 
- <%= f.submit "post transaction" %>
+ <%= f.submit "post transaktion" %>
 
 <% end %>
 

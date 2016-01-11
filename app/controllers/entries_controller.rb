@@ -69,6 +69,6 @@ class EntriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def entry_params
-      params.require(:entry).permit(:transaction_id, :item_id, :price, :qty, :is_debit, :account_id)
+      params.require(:entry).permit(:transaktion_id, :item_id, :price, :qty, :is_debit, :account_id)
     end
 end

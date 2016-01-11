@@ -49,7 +49,7 @@ $ ->
   $(".autocomplete").each addAutocomplete
 
   # Add event listeners to the buttons which will be used to create additional
-  # credit and debit entries for the transaction about to be created
+  # credit and debit entries for the transaktion about to be created
   $(".replicator").click ->
     parent = $(this).parent()
     newFieldset = incrementIndex(parent.find(".replic").last().clone())

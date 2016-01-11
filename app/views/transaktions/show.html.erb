@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @transaktion.date %>
+</p>
+
+<p>
+  <strong>Entity:</strong>
+  <%= @transaktion.entity %>
+</p>
+
+<p>
+  <strong>Is void:</strong>
+  <%= @transaktion.is_void %>
+</p>
+
+<%= link_to 'Edit', edit_transaktion_path(@transaktion) %> |
+<%= link_to 'Back', transaktions_path %>

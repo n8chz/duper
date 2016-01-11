@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215142858) do
+ActiveRecord::Schema.define(version: 20160111040746) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "name"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20151215142858) do
   end
 
   create_table "entries", force: :cascade do |t|
-    t.integer  "transaction_id"
+    t.integer  "transaktion_id"
     t.integer  "item_id"
     t.integer  "price"
     t.float    "qty"
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20151215142858) do
 
   add_index "entries", ["account_id"], name: "index_entries_on_account_id"
   add_index "entries", ["item_id"], name: "index_entries_on_item_id"
-  add_index "entries", ["transaction_id"], name: "index_entries_on_transaction_id"
+  add_index "entries", ["transaktion_id"], name: "index_entries_on_transaktion_id"
 
   create_table "items", force: :cascade do |t|
     t.string   "barcode"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20151215142858) do
 
   add_index "items", ["unit_id"], name: "index_items_on_unit_id"
 
-  create_table "transactions", force: :cascade do |t|
+  create_table "transaktions", force: :cascade do |t|
     t.datetime "date"
     t.integer  "entity_id"
     t.boolean  "is_void"
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 20151215142858) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "transactions", ["entity_id"], name: "index_transactions_on_entity_id"
+  add_index "transaktions", ["entity_id"], name: "index_transaktions_on_entity_id"
 
   create_table "units", force: :cascade do |t|
     t.string   "unit"
