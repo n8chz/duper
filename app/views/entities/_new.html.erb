@@ -3,39 +3,39 @@
  <fieldset>
   <legend>name</legend>
   <%= f.label :name %>
-  <%= f.text_field :name, :autofocus => "true" %>
+  <%= f.text_field :name, :autofocus => "true", :tabindex => 1 %>
  </fieldset>
 
  <fieldset>
   <legend>address</legend>
   <%= f.label :no, "number" %>
-  <%= f.text_field :no %>
+  <%= f.text_field :no, :tabindex => 2 %>
   <%= f.label :frac, "fraction, e.g. 1/2" %>
   <%= f.text_field :frac %>
   <%= f.label :street, "street" %>
-  <%= f.text_field :street %>
+  <%= f.text_field :street, :tabindex => 3 %>
   <%= f.label :unit, "unit, e.g. Suite 100" %>
   <%= f.text_field :unit %><br />
   <%= f.label :box, "box" %>
   <%= f.text_field :box %><br />
   <%= f.label :city, "city" %>
-  <%= f.text_field :city %>
+  <%= f.text_field :city, :tabindex => 4 %>
   <%= f.label :polsub, "state (or province, etc.)" %>
-  <%= f.text_field :polsub %>
+  <%= f.text_field :polsub, :tabindex => 5 %>
   <%= f.label :postal, "zip code (or other postal code)" %>
-  <%= f.text_field :postal %><br />
+  <%= f.text_field :postal, :tabindex => 6 %><br />
   <%= f.label :nation , "country" %>
-  <%= f.text_field :nation%>
+  <%= f.text_field :nation, :tabindex => 7 %>
  </fieldset>
 
  <fieldset>
   <legend>other contact info</legend>
   <%= f.label :phone, "phone" %>
-  <%= f.text_field :phone %><br />
+  <%= f.text_field :phone, :tabindex => 8 %><br />
   <%= f.label :email, "email" %>
-  <%= f.text_field :phone %><br />
+  <%= f.text_field :email, :tabindex => 9 %><br />
   <%= f.label :url, "url" %>
-  <%= f.text_field :url%>
+  <%= f.text_field :url, :tabindex => 10 %>
  </fieldset>
 
  <%= f.submit %>

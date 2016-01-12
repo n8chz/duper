@@ -42,11 +42,12 @@ incrementIndex = (fieldset) ->
         $(this).attr(attrName, left+newIndex+right)
   fieldset
 
-$ ->
+ready = -> # h/t http://stackoverflow.com/a/18770589/948073
 
   $("#date").datepicker
     changeMonth: true
     changeYear: true
+    dateFormat: "yy-mm-dd"
 
   # Set up input elements for foreign keys as autofill, so we can see the
   # referenced objects as descriptive strings rather than abstract keys
@@ -56,7 +57,8 @@ $ ->
       select: (event, ui) ->
         $(this).val ui.item.label
         # following line is a kludge, assumes next input is value
-        $($(this).id+"_id").val ui.item.value
+        $("##{$(this).attr "id"}_id").val ui.item.value
+        $($(this).attr("id")).val ui.item.value
         # $(this).next("input").val ui.item.value
         false
 
@@ -102,4 +104,7 @@ $ ->
     $(this).keydown (event) ->
       if event.which == 27
         $(this).closest("div").hide()
+
+$(document).ready(ready);
+$(document).on('page:load', ready);
 
