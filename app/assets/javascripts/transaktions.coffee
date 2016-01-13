@@ -19,12 +19,26 @@ plusClick = ->
       placeholderInput.val placeholder dataClass, obj
       idInput.val obj.id
 
+# Function for adding up debits or credits
+# Function for adding up debits or credits
+columnTotal = (columnClass) ->
+  $(columnClass).get().map (e) ->
+    Number e.value
+  .reduce (x, y) -> x+y
+
 multiplicandBlur = ->
   terms = ($(this).attr "name").split /\]?\[/
   base = "##{terms[0]}_#{terms[1]}_"
   price = Number($(base+"price").val())
   qty = Number($(base+"qty").val())
   $(base+"debit").val price*qty
+  # enable form submission only if debits == credits
+  totalDebits = columnTotal ".debit"
+  totalCredits = columnTotal ".credit"
+  difference = Math.abs(totalDebits - totalCredits)
+  imbalance = (difference > 0.005)
+  console.log "\ndebits: #{totalDebits}\ncredits: #{totalCredits}\ndifference: #{difference}\nimbalance: #{imbalance}"
+  $("#post").attr "disabled", imbalance
 
 # Generate friendly display strings for result of create.json
 # so newly created objects can look like previously existing

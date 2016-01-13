@@ -3,7 +3,6 @@
 
  <fieldset id="pos">
   <legend>point of sale information</legend>
-
   <label for="date">date</label>
 
   <%= f.text_field :date, :id => "date" %><br />
@@ -29,7 +28,7 @@
    <%= autofill_inputs "entry", 0, "account" %>
    <!-- amount -->
    <label>credit amount</label>
-   <input name="entry[0][price]" class="money" />
+   <input name="entry[0][price]" class="money credit" />
 
   </fieldset>
 
@@ -59,7 +58,7 @@
     <%= autofill_inputs "entry", 1, "account" %>
    </td>
    <td>
-    <input id="entry_1_debit" class="money" disabled />
+    <input id="entry_1_debit" class="money debit" disabled />
    </td>
   </tr>
 
@@ -69,7 +68,7 @@
 
  </fieldset>
 
- <%= f.submit "post transaktion" %>
+ <%= f.submit "post transaktion", :id => "post", :disabled => true %>
 
 <% end %>
 
