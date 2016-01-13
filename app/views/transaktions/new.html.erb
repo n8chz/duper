@@ -51,15 +51,15 @@
     <%= autofill_inputs "entry", 1, "item" %>
    </td>
    <!-- price -->
-   <td><input name="entry[1][price]" class="money" /></td>
+   <td><input id="entry_1_price" name="entry[1][price]" class="money multiplicand" /></td>
    <!-- qty -->
-   <td><input name="entry[1][qty]" /></td>
+   <td><input id="entry_1_qty" name="entry[1][qty]" class="multiplicand" /></td>
    <!-- acct -->
    <td>
     <%= autofill_inputs "entry", 1, "account" %>
    </td>
    <td>
-    <input id="entry_1_debit" disabled />
+    <input id="entry_1_debit" class="money" disabled />
    </td>
   </tr>
 

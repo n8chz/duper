@@ -35,6 +35,9 @@ class TransaktionsController < ApplicationController
     @transaktion = Transaktion.new(params["transaktion"])
     @transaktion.save # see http://stackoverflow.com/a/2618902/948073 
     params["entry"].values.each do |entry|
+      entry["qty"] = 1 if not entry["qty"]
+      # price is an integer field, measured in pennies...
+      entry["price"] = (100.0*(entry["price"].to_f)+0.5).to_s
       entry["transaktion_id"] = @transaktion.id
       Entry.new(entry).save
     end

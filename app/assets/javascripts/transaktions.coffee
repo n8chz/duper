@@ -5,24 +5,33 @@
 # Click listener for + buttons
 plusClick = ->
   dataClass = $(this).data "class"
+  dest = $(this).data "destination"
   popup = $("#"+dataClass+"_popup")
   popup.show()
   popup.find("[autofocus]").focus()
-  dest = $(this).data "destination"
-  destInput = $("#"+dest);
+  placeholderInput = $("#"+dest)
+  idInput = $("##{dest}_id")
   $(document).ajaxSuccess (event, xhr, settings) ->
-    if settings.url == (destInput.data "source")
+    if settings.url == (placeholderInput.data "source")
       obj = JSON.parse xhr.responseText
       # insert "friendly description" in visible field:
-      destInput.val placeholder dataClass, obj
-      $("#"+dest+"_id").val obj.id
+      # slice is a kludge
+      placeholderInput.val placeholder dataClass, obj
+      idInput.val obj.id
+
+multiplicandBlur = ->
+  terms = ($(this).attr "name").split /\]?\[/
+  base = "##{terms[0]}_#{terms[1]}_"
+  price = Number($(base+"price").val())
+  qty = Number($(base+"qty").val())
+  $(base+"debit").val price*qty
 
 # Generate friendly display strings for result of create.json
 # so newly created objects can look like previously existing
 # ones selected via autocomplete:
 placeholder = (klass, obj) ->
   switch klass
-    when "entity" then obj.name
+    when "entity" then "#{obj.name} (#{obj.city}, #{obj.polsub})"
     when "account" then obj.name
     when "item" then "#{obj.brand} #{obj.gendesc} #{obj.size} #{obj.unit}"
     else "???"
@@ -75,21 +84,10 @@ ready = -> # h/t http://stackoverflow.com/a/18770589/948073
     newFieldset.find(".autocomplete").each addAutocomplete
     # add same click listener that was added to original copy
     newFieldset.find(".plus").click plusClick
+    newFieldset.find(".multiplicand").blur multiplicandBlur
 
   # Add event listeners to .plus buttons so their associated modal forms will be made visible.
-  $(".plus").click ->
-    dataClass = $(this).data "class"
-    popup = $("#"+dataClass+"_popup")
-    popup.show()
-    popup.find("[autofocus]").focus()
-    dest = $(this).data "destination"
-    destInput = $("#"+dest);
-    $(document).ajaxSuccess (event, xhr, settings) ->
-      if settings.url == (destInput.data "source")
-        obj = JSON.parse xhr.responseText
-        # insert "friendly description" in visible field:
-        destInput.val placeholder dataClass, obj
-        $("#"+dest+"_id").val obj.id
+  $(".plus").click plusClick
 
   # Make forms in popups remote,
   # see http://edgeguides.rubyonrails.org/working_with_javascript_in_rails.html#form-for
@@ -104,6 +102,8 @@ ready = -> # h/t http://stackoverflow.com/a/18770589/948073
     $(this).keydown (event) ->
       if event.which == 27
         $(this).closest("div").hide()
+
+  $(".multiplicand").blur multiplicandBlur
 
 $(document).ready(ready);
 $(document).on('page:load', ready);
