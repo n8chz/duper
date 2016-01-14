@@ -11,7 +11,10 @@ class AccountsController < ApplicationController
        {label: account.account_pathname, value: account.id}
       }
       if params[:term]
-       descriptions.select! { |desc| desc[:label].index(params[:term]) }
+       term = params[:term].downcase
+       descriptions.select! { |desc|
+         desc[:label].downcase.index(term)
+       }
       end
       render json: descriptions.to_json
      }

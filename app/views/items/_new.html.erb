@@ -1,3 +1,4 @@
+<!--
 <script>
 
   $("#item_unit_id").blur(function (event) {
@@ -16,6 +17,7 @@
   }
 
 </script>
+-->
 
 <%= form_for :item, url: "/items" do |f| %>
 
@@ -34,6 +36,8 @@
   <label>size</label>
   <%= f.text_field :size %>
   <label>units</label>
+  <%= autofill_inputs "item", nil, "unit" %>
+  <!--
   <%= f.text_field :unit_id, :list => "units" %>
   <datalist id="units">
    <% @units.each do |unit| %>
@@ -41,6 +45,7 @@
    <% end %>
   </datalist>
   <span id="_item_unit_id"></span><br />
+  -->
 
   <%= f.submit %>
 

@@ -12,7 +12,10 @@ class EntitiesController < ApplicationController
        {label: entity.name, value: entity.id}
       }
       if params[:term]
-       descriptions.select! { |desc| desc[:label].index(params[:term]) }
+       # looking for already-stored entities of which search term is a
+       # substring, in a case-insensitive way
+       term = params[:term].downcase
+       descriptions.select! { |desc| desc[:label].downcase.index(term) }
       end
       render json: descriptions.to_json
      }

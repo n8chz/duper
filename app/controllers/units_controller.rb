@@ -5,6 +5,22 @@ class UnitsController < ApplicationController
   # GET /units.json
   def index
     @units = Unit.all
+
+    respond_to do |format|
+      format.html { @units = Unit.all }
+      format.json {
+       descriptions = @units.map { |unit|
+        {label: unit.unit, value: unit.id}
+       }
+       if params[:term]
+        term = params[:term].downcase
+        descriptions.select! { |desc|
+         desc[:label].downcase.index(term)
+        }
+       end
+       render json: descriptions.to_json
+      }
+    end
   end
 
   # GET /units/1
