@@ -38,7 +38,7 @@ class TransaktionsController < ApplicationController
       entry = params["entry"][index]
       entry["qty"] = 1 if not entry["qty"]
       # price is an integer field, measured in pennies...
-      is_debit = (index.to_i%2 == 0)
+      is_debit = (index.to_i%2 != 0)
       entry["is_debit"] = is_debit
       price = (100.0*(entry["price"].to_f)+0.5).to_s
       entry["price"] = price

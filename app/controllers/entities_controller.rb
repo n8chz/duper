@@ -9,7 +9,9 @@ class EntitiesController < ApplicationController
      format.html { @items = Item.all }
      format.json {
       descriptions = @entities.map { |entity|
-       {label: entity.name, value: entity.id}
+       desc = "#{entity.name}"
+       desc << " (#{entity.city}, #{entity.polsub})" if entity.city or entity.polsub
+       {label: desc, value: entity.id}
       }
       if params[:term]
        # looking for already-stored entities of which search term is a

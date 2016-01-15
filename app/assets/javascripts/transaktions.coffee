@@ -4,18 +4,20 @@
 
 # Click listener for + buttons
 plusClick = ->
+  button = this # scope kludge
   dataClass = $(this).data "class"
   dest = $(this).data "destination"
   popup = $("#"+dataClass+"_popup")
+  popup.find("input[type!=submit]").val ""
   popup.show()
   popup.find("[autofocus]").focus()
   placeholderInput = $("#"+dest)
   idInput = $("##{dest}_id")
   $(document).ajaxSuccess (event, xhr, settings) ->
-    if settings.url == (placeholderInput.data "source")
+    # total kludge:
+    if !(idInput.attr "value")
       obj = JSON.parse xhr.responseText
       # insert "friendly description" in visible field:
-      # slice is a kludge
       placeholderInput.val placeholder dataClass, obj
       idInput.val obj.id
 
@@ -37,7 +39,6 @@ multiplicandBlur = ->
   totalCredits = columnTotal ".credit"
   difference = Math.abs(totalDebits - totalCredits)
   imbalance = (difference > 0.005)
-  console.log "\ndebits: #{totalDebits}\ncredits: #{totalCredits}\ndifference: #{difference}\nimbalance: #{imbalance}"
   $("#post").attr "disabled", imbalance
 
 # Generate friendly display strings for result of create.json
@@ -79,10 +80,8 @@ ready = -> # h/t http://stackoverflow.com/a/18770589/948073
       source: $(this).data("source")
       select: (event, ui) ->
         $(this).val ui.item.label
-        # following line is a kludge, assumes next input is value
         $("##{$(this).attr "id"}_id").val ui.item.value
-        $($(this).attr("id")).val ui.item.value
-        # $(this).next("input").val ui.item.value
+        #$($(this).attr("id")).val ui.item.value
         false
 
   # Set up input elements for foreign keys as autofill, so we can see the
