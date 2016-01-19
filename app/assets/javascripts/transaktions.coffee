@@ -98,6 +98,7 @@ ready = -> # h/t http://stackoverflow.com/a/18770589/948073
     # add same click listener that was added to original copy
     newFieldset.find(".plus").click plusClick
     newFieldset.find(".multiplicand").blur multiplicandBlur
+    newFieldset.find("input").first().focus()
 
   # Add event listeners to .plus buttons so their associated modal forms will be made visible.
   $(".plus").click plusClick
