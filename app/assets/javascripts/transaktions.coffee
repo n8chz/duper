@@ -20,6 +20,7 @@ plusClick = ->
       # insert "friendly description" in visible field:
       placeholderInput.val placeholder dataClass, obj
       idInput.val obj.id
+      placeholderInput.focus()
 
 # Function for adding up debits or credits
 # Function for adding up debits or credits
@@ -33,7 +34,7 @@ multiplicandBlur = ->
   base = "##{terms[0]}_#{terms[1]}_"
   price = Number($(base+"price").val())
   qty = Number($(base+"qty").val())
-  $(base+"debit").val price*qty
+  $(base+"debit").val Math.floor(100*price*qty+0.5)/100.0
   # enable form submission only if debits == credits
   totalDebits = columnTotal ".debit"
   totalCredits = columnTotal ".credit"
@@ -54,7 +55,7 @@ placeholder = (klass, obj) ->
 # Increment integer substrings of id and name attributes by 2
 incrementIndex = (fieldset) ->
   # Clear text entered on previous line
-  fieldset.find("input").val ""
+  fieldset.find("input[value!='1']").val "" 
   ["name", "id", "data-destination"].forEach (attrName) ->
     fieldset.find("[#{attrName}]").each ->
       old = $(this).attr(attrName)
