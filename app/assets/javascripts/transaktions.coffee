@@ -4,7 +4,6 @@
 
 # Click listener for + buttons
 plusClick = ->
-  button = this # scope kludge
   dataClass = $(this).data "class"
   dest = $(this).data "destination"
   popup = $("#"+dataClass+"_popup")
@@ -13,14 +12,13 @@ plusClick = ->
   popup.find("[autofocus]").focus()
   placeholderInput = $("#"+dest)
   idInput = $("##{dest}_id")
+  $(document).off "ajaxSuccess" # h/t http://stackoverflow.com/a/34929325/948073
   $(document).ajaxSuccess (event, xhr, settings) ->
-    # total kludge:
-    if !(idInput.attr "value")
-      obj = JSON.parse xhr.responseText
-      # insert "friendly description" in visible field:
-      placeholderInput.val placeholder dataClass, obj
-      idInput.val obj.id
-      placeholderInput.focus()
+    obj = JSON.parse xhr.responseText
+    # insert "friendly description" in visible field:
+    placeholderInput.val placeholder dataClass, obj
+    idInput.val obj.id
+    placeholderInput.focus()
 
 # Function for adding up debits or credits
 # Function for adding up debits or credits

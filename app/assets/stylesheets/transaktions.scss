@@ -34,17 +34,28 @@ input, button {
 
 input {
  background-color: black;
+ font-family: "Mono";
+ font-weight: bold;
+}
+
+input:focus {
+ background-color: #a0a;
 }
 
 .replicator {
- background-color: #707;
+ background-color: #808;
  font-weight: bold;
+}
+
+.replicator:focus {
+ background-color: #a00;
+ border: 2px solid blue;
+ color: yellow;
 }
 
 label {
  color: white;
  background-color: black;
- font-weight: bold;
 }
 
 fieldset {
