@@ -2,10 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-* {
- z-index: 1;
-}
-
 .new_iframe {
  z-index: 2;
  display: block;
@@ -20,3 +16,46 @@
  text-align: right;
 }
 
+body {
+ color: white;
+ background-color: black;
+ font-size: 16px;
+ font-family: "Sans";
+}
+
+input, button {
+ color: white;
+ background-color: black;
+ font-family: "Sans";
+ font-size: 16px;
+}
+
+label {
+ color: white;
+ background-color: black;
+ font-weight: bold;
+}
+
+fieldset {
+ color: black;
+ background-color: white;
+ border: none;
+ margin-top: 15px;
+ border: 2px solid black;
+}
+
+legend {
+ font-weight: bold;
+ border: 2px solid black;
+ color: #4f6d4d;
+ background-color: #b5f2b7;
+}
+
+fieldset, legend, input, button, label {
+ border-radius: 10px;
+}
+
+label {
+ padding-left: 0.5em;
+ padding-right: 0.5em;
+}

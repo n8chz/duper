@@ -1,5 +1,5 @@
+<h1>enter new purchase transaktion</h1>
 <%= form_for :transaktion, url: "/transaktions" do |f| %>
-<legend>enter new purchase transaktion</legend>
 
  <fieldset id="pos">
   <legend>point of sale information</legend>
@@ -20,6 +20,7 @@
  <fieldset id="payments">
   <legend>payments</legend>
 
+  <div>
   <!-- data-index even for credit, odd for debit -->
   <fieldset class="payment_method replic" id="payment_method">
 
@@ -31,6 +32,7 @@
    <input name="entry[0][price]" class="money credit" />
 
   </fieldset>
+  </div>
 
   <button class="replicator" type="button" data-fieldset-type="payment_method">additonal payment method</button>
 

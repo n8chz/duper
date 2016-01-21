@@ -94,7 +94,8 @@ ready = -> # h/t http://stackoverflow.com/a/18770589/948073
   $(".replicator").click ->
     parent = $(this).parent()
     newFieldset = incrementIndex(parent.find(".replic").last().clone())
-    $(this).before(newFieldset)
+    $(this).prev().append(newFieldset)
+    # $(this).before(newFieldset)
     newFieldset.find(".autocomplete").each addAutocomplete
     # add same click listener that was added to original copy
     newFieldset.find(".plus").click plusClick
