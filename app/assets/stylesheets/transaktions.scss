@@ -21,13 +21,24 @@ body {
  background-color: black;
  font-size: 16px;
  font-family: "Sans";
+ padding-right: 5em;
+ padding-left: 1em;
 }
 
 input, button {
  color: white;
- background-color: black;
+ background-color: #00a;
  font-family: "Sans";
  font-size: 16px;
+}
+
+input {
+ background-color: black;
+}
+
+.replicator {
+ background-color: #707;
+ font-weight: bold;
 }
 
 label {
@@ -47,7 +58,7 @@ fieldset {
 legend {
  font-weight: bold;
  border: 2px solid black;
- color: #4f6d4d;
+ color: black;
  background-color: #b5f2b7;
 }
 
@@ -55,7 +66,19 @@ fieldset, legend, input, button, label {
  border-radius: 10px;
 }
 
-label {
+label, legend {
  padding-left: 0.5em;
  padding-right: 0.5em;
+}
+
+#post {
+ background-color: yellow;
+ color: black;
+ font-weight: bold;
+ margin-top: 15px;
+}
+
+.popup {
+ border-radius: 10px;
+ border: 5px solid red;
 }
