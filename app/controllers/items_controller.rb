@@ -4,31 +4,9 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    @items = Item.all
-    @units = Unit.all
-
-    # h/t http://stackoverflow.com/a/3222639/948073 
-    respond_to do |format|
-     format.html { @items = Item.all }
-     format.json {
-      puts "foo"
-      descriptions = @items.map { |item|
-       units = @units.select { |u|
-        u.id == item.unit_id
-       }
-       unit = ""
-       unit = units[0].unit if units.length > 0
-       {label: "#{item.brand} #{item.gendesc}, #{item.size} #{unit} #{item.barcode}", value: "#{item.id}"}
-      }
-      if params[:term]
-       term = params[:term].downcase
-       descriptions.select! { |desc|
-         desc[:label].downcase.index(term)
-       }
-      end
-      render json: descriptions.to_json
-     }
-    end
+    # h/t http://stackoverflow.com/a/3222639/948073
+    @items = Item.all.reverse
+    genericResponse @items
   end
 
   # GET /items/1
@@ -56,7 +34,8 @@ class ItemsController < ApplicationController
       if @item.save
         # format.html { redirect_to @item, notice: 'Item was successfully created.' }
         format.html { redirect_to new_item_url }
-        format.json { render :show, status: :created, location: @item }
+        # format.json { render :show, status: :created, location: @item }
+        format.json { render json: {id: @item.id, friendlyName: friendlyName(@item), input: params[:input]} }
       else
         format.html { render :new }
         format.json { render json: @item.errors, status: :unprocessable_entity }

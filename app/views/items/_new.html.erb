@@ -37,15 +37,6 @@
   <%= f.text_field :size %>
   <label>units</label>
   <%= autofill_inputs "item", nil, "unit" %>
-  <!--
-  <%= f.text_field :unit_id, :list => "units" %>
-  <datalist id="units">
-   <% @units.each do |unit| %>
-    <%= content_tag "option", unit.unit, value: unit.id %>
-   <% end %>
-  </datalist>
-  <span id="_item_unit_id"></span><br />
-  -->
 
   <%= f.submit %>
 
@@ -53,5 +44,6 @@
 
 <% end %>
 
+<!-- TODO: make back link not show up on popup version of form -->
 <%= link_to "Back", items_path %>
 

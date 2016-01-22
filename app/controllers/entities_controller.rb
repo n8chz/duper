@@ -5,23 +5,7 @@ class EntitiesController < ApplicationController
   # GET /entities.json
   def index
     @entities = Entity.all
-    respond_to do |format|
-     format.html { @items = Item.all }
-     format.json {
-      descriptions = @entities.map { |entity|
-       desc = "#{entity.name}"
-       desc << " (#{entity.city}, #{entity.polsub})" if entity.city or entity.polsub
-       {label: desc, value: entity.id}
-      }
-      if params[:term]
-       # looking for already-stored entities of which search term is a
-       # substring, in a case-insensitive way
-       term = params[:term].downcase
-       descriptions.select! { |desc| desc[:label].downcase.index(term) }
-      end
-      render json: descriptions.to_json
-     }
-    end
+    genericResponse @entities
   end
 
   # GET /entities/1

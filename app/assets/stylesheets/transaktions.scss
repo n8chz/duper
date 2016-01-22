@@ -54,8 +54,8 @@ input:focus {
 }
 
 label {
- color: white;
- background-color: black;
+ color: black;
+ background-color: white;
 }
 
 fieldset {
@@ -73,7 +73,7 @@ legend {
  background-color: #b5f2b7;
 }
 
-fieldset, legend, input, button, label {
+fieldset, legend, input, button {
  border-radius: 10px;
 }
 

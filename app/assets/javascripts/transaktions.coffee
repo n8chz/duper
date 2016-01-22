@@ -8,17 +8,21 @@ plusClick = ->
   dest = $(this).data "destination"
   popup = $("#"+dataClass+"_popup")
   popup.find("input[type!=submit]").val ""
+  popup.find("input[name=input]").remove()
+  popup.find("form").append($("<input>").attr("name", "input").attr("type", "hidden").val(dest))
   popup.show()
   popup.find("[autofocus]").focus()
   placeholderInput = $("#"+dest)
   idInput = $("##{dest}_id")
-  $(document).off "ajaxSuccess" # h/t http://stackoverflow.com/a/34929325/948073
+  # $(document).off "ajaxSuccess" # h/t http://stackoverflow.com/a/34929325/948073
   $(document).ajaxSuccess (event, xhr, settings) ->
+    console.log xhr.responseText
     obj = JSON.parse xhr.responseText
-    # insert "friendly description" in visible field:
-    placeholderInput.val placeholder dataClass, obj
-    idInput.val obj.id
-    placeholderInput.focus()
+    if obj.input == dest
+      # insert "friendly description" in visible field:
+      placeholderInput.val obj.friendlyName
+      idInput.val obj.id
+      placeholderInput.focus()
 
 # Function for adding up debits or credits
 # Function for adding up debits or credits

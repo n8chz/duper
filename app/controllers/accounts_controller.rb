@@ -5,22 +5,7 @@ class AccountsController < ApplicationController
   # GET /accounts.json
   def index
     @accounts = Account.all
-    respond_to do |format|
-     format.json {
-      descriptions = @accounts.map { |account|
-       {label: account.account_pathname, value: account.id}
-      }
-      if params[:term]
-       term = params[:term].downcase
-       descriptions.select! { |desc|
-         desc[:label].downcase.index(term)
-       }
-      end
-      render json: descriptions.to_json
-     }
-     format.html {
-     }
-    end
+    genericResponse @accounts
   end
 
   # GET /accounts/1
