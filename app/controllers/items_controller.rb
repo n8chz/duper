@@ -35,7 +35,9 @@ class ItemsController < ApplicationController
         # format.html { redirect_to @item, notice: 'Item was successfully created.' }
         format.html { redirect_to new_item_url }
         # format.json { render :show, status: :created, location: @item }
-        format.json { render json: {id: @item.id, friendlyName: friendlyName(@item), input: params[:input]} }
+        format.json {
+         render json: {id: @item.id, friendlyName: friendlyName(@item), input: params[:input]}
+        }
       else
         format.html { render :new }
         format.json { render json: @item.errors, status: :unprocessable_entity }

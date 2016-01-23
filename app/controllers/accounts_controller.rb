@@ -32,7 +32,9 @@ class AccountsController < ApplicationController
     respond_to do |format|
       if @account.save
         format.html { redirect_to @account, notice: 'Account was successfully created.' }
-        format.json { render :show, status: :created, location: @account }
+        format.json {
+         render json: {id: @account.id, friendlyName: friendlyName(@account), input: params[:input]}
+        }
       else
         # format.html { render :new }
         # format.json { render json: @account.errors, status: :unprocessable_entity }
