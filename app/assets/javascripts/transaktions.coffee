@@ -39,20 +39,13 @@ multiplicandBlur = ->
   $(base+"debit").val Math.floor(100*price*qty+0.5)/100.0
   # enable form submission only if debits == credits
   totalDebits = columnTotal ".debit"
+  $("#total_debits").text totalDebits.toFixed(2)
   totalCredits = columnTotal ".credit"
+  $("#total_credits").text totalCredits.toFixed(2)
   difference = Math.abs(totalDebits - totalCredits)
-  imbalance = (difference > 0.005)
+  $("#imbalance").text difference.toFixed(2)
+  imbalance = (difference > 0.015)
   $("#post").attr "disabled", imbalance
-
-# Generate friendly display strings for result of create.json
-# so newly created objects can look like previously existing
-# ones selected via autocomplete:
-placeholder = (klass, obj) ->
-  switch klass
-    when "entity" then "#{obj.name} (#{obj.city}, #{obj.polsub})"
-    when "account" then obj.name
-    when "item" then "#{obj.brand} #{obj.gendesc} #{obj.size} #{obj.unit}"
-    else "???"
 
 # Increment integer substrings of id and name attributes by 2
 incrementIndex = (fieldset) ->

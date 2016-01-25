@@ -12,7 +12,7 @@
  left: 10%;
 }
 
-.money {
+.money, .multiplicand {
  text-align: right;
 }
 
@@ -53,6 +53,10 @@ input:focus {
  color: yellow;
 }
 
+.plus:focus {
+ background-color: #a7f;
+}
+
 label {
  color: black;
  background-color: white;
@@ -66,21 +70,23 @@ fieldset {
  border: 2px solid black;
 }
 
-legend {
+legend, #summary th {
  font-weight: bold;
  border: 2px solid black;
  color: black;
  background-color: #b5f2b7;
 }
 
-fieldset, legend, input, button {
+fieldset, legend, input, button, #summary th {
  border-radius: 10px;
 }
+
 
 label, legend {
  padding-left: 0.5em;
  padding-right: 0.5em;
 }
+
 
 #post {
  background-color: yellow;
@@ -89,7 +95,24 @@ label, legend {
  margin-top: 15px;
 }
 
+#post:disabled {
+ background-color: rgba(255,255,0,0.5);
+ color: rgba(0,0,0,0.5);
+}
+
 .popup {
  border-radius: 10px;
  border: 5px solid red;
+}
+
+#summary {
+ margin-top: 2em;
+}
+
+#summary td {
+ background-color: white;
+ color: black;
+ font-family: "Mono";
+ font-weight: bold;
+ text-align: right;
 }

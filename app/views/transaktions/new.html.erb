@@ -29,7 +29,7 @@
    <%= autofill_inputs "entry", 0, "account" %>
    <!-- amount -->
    <label>credit amount</label>
-   <input name="entry[0][price]" class="money credit" />
+   <input name="entry[0][price]" class="money credit multiplicand" />
 
   </fieldset>
   </div>
@@ -73,6 +73,15 @@
  <%= f.submit "post transaktion", :id => "post", :disabled => true %>
 
 <% end %>
+
+<table id="summary">
+<thead>
+<tr><th>total debits</th><th>total credits</th><th>imbalance</th></tr>
+</thead>
+<tbody>
+<tr><td id="total_debits" class="money">0.00</td><td id="total_credits" class="money">0.00</td><td id="imbalance" class="money">0.00</td></tr>
+</tbody>
+</table>
 
 <div id="entity_popup" class="popup">
  <%= render "entities/new" %>
