@@ -32,6 +32,9 @@ class EntitiesController < ApplicationController
       if @entity.save
         format.html { redirect_to @entity, notice: 'Entity was successfully created.' }
         format.json { render :show, status: :created, location: @entity }
+        format.json {
+         render json: {id: @entity.id, friendlyName: friendlyName(@entity), input: params[:input]}
+        }
       else
         format.html { render :new }
         format.json { render json: @entity.errors, status: :unprocessable_entity }
