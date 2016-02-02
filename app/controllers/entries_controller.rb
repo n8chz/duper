@@ -71,4 +71,5 @@ class EntriesController < ApplicationController
     def entry_params
       params.require(:entry).permit(:transaktion_id, :item_id, :price, :qty, :is_debit, :account_id)
     end
+
 end

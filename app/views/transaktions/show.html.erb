@@ -1,19 +1,37 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Date:</strong>
-  <%= @transaktion.date %>
-</p>
+<div class="transaktion">
+  <%= @transaktion.date %><br />
 
-<p>
-  <strong>Entity:</strong>
-  <%= @transaktion.entity %>
-</p>
+  <% entity = Entity.find(@transaktion.entity_id) %>
+  <h1><a href="<%= entity_path entity %>"><%= entity.name %></a></h1>
 
-<p>
-  <strong>Is void:</strong>
-  <%= @transaktion.is_void %>
-</p>
+  <table class="entries">
+   <thead>
+    <tr>
+     <th>item</th>
+     <th>account</th>
+     <th>debit amt</th>
+     <th>credit amt</th>
+    </tr>
+   </thead>
+   <tbody>
+    <% entries = Entry.where(transaktion_id: @transaktion.id).sort { |x, y| %>
+     <% y.net_amt <=> x.net_amt %>
+    <% } %>
+    <% entries.each do |entry| %>
+     <tr>
+      <% item = Item.find(entry.item_id) if entry.item_id %>
+      <td><a href="<%= item_path item if item %>"><%= item.gendesc if item %></a></td>
+      <% account = Account.find(entry.account_id) %>
+      <td><a href="<%= account_path account %>"><%= account.account_pathname %></a></td>
+      <td class="money"><%= entry.price*entry.qty/100 if entry.is_debit %></td>
+      <td class="money"><%= entry.price*entry.qty/100 if not entry.is_debit %></td>
+     </tr>
+    <% end %>
+   </tbody>
+  </table>
+  <%= link_to "Edit", edit_transaktion_path(@transaktion) %> |
+  <%= link_to "New", new_transaktion_path %>
+</div>
 
-<%= link_to 'Edit', edit_transaktion_path(@transaktion) %> |
-<%= link_to 'Back', transaktions_path %>

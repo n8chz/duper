@@ -116,3 +116,22 @@ label, legend {
  font-weight: bold;
  text-align: right;
 }
+
+.entries td {
+ padding: 3px;
+}
+
+.entries tr {
+ background-color: white;
+ color: black;
+}
+
+.transaktion a, .transaktion a:visited {
+ color: green;
+ text-decoration: none;
+}
+
+.transaktion a:hover {
+ background-color: #8f8;
+}
+
