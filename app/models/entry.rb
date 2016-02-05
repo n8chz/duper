@@ -9,4 +9,8 @@ class Entry < ActiveRecord::Base
     pq
   end
 
+  def entry_date
+    Transaktion.find(self.transaktion_id).date
+  end
+
 end

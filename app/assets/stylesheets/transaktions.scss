@@ -126,12 +126,16 @@ label, legend {
  color: black;
 }
 
-.transaktion a, .transaktion a:visited {
- color: green;
+.instance a, .instance a:visited {
+ color: #090;
  text-decoration: none;
 }
 
-.transaktion a:hover {
+.instance a:hover {
  background-color: #8f8;
+}
+
+.red {
+ color: red;
 }
 

@@ -27,7 +27,7 @@
 
 <p>
   <strong>Account:</strong>
-  <%= @entry.account %>
+  <%= Account.find(@entry.account_id).account_pathname %>
 </p>
 
 <%= link_to 'Edit', edit_entry_path(@entry) %> |

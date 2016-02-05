@@ -1,10 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<div class="transaktion">
+<div class="instance">
   <%= @transaktion.date %><br />
 
-  <% entity = Entity.find(@transaktion.entity_id) %>
-  <h1><a href="<%= entity_path entity %>"><%= entity.name %></a></h1>
+  <% if @transaktion.entity_id %>
+   <% entity = Entity.find(@transaktion.entity_id) %>
+   <h1><a href="<%= entity_path entity %>"><%= entity.name %></a></h1>
+  <% end %>
 
   <table class="entries">
    <thead>
@@ -25,8 +27,8 @@
       <td><a href="<%= item_path item if item %>"><%= item.gendesc if item %></a></td>
       <% account = Account.find(entry.account_id) %>
       <td><a href="<%= account_path account %>"><%= account.account_pathname %></a></td>
-      <td class="money"><%= entry.price*entry.qty/100 if entry.is_debit %></td>
-      <td class="money"><%= entry.price*entry.qty/100 if not entry.is_debit %></td>
+      <td class="money"><%= "%.2f"%(entry.price*entry.qty/100) if entry.is_debit %></td>
+      <td class="money"><%= "%.2f"%(entry.price*entry.qty/100) if not entry.is_debit %></td>
      </tr>
     <% end %>
    </tbody>

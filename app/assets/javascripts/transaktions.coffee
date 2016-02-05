@@ -116,6 +116,9 @@ ready = -> # h/t http://stackoverflow.com/a/18770589/948073
 
   $(".multiplicand").blur multiplicandBlur
 
+  $(".money").blur ->
+    $(this).val Number($(this).val()).toFixed 2
+
 $(document).ready(ready);
 $(document).on('page:load', ready);
 

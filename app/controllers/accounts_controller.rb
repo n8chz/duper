@@ -26,11 +26,32 @@ class AccountsController < ApplicationController
   # POST /accounts
   # POST /accounts.json
   def create
-    puts account_params
     @account = Account.new(account_params)
 
     respond_to do |format|
       if @account.save
+        if params["date"] && params["init"]
+          # identify opening balances account
+          openingBalancesAccount = Account.find_by name: "opening balances"
+          # create transaction which initializes account balance:
+          transaktion = {}
+          transaktion["date"] = params["date"]
+          transaktion["is_void"] = false
+          tr = Transaktion.new(transaktion)
+          tr.save
+          # create two entries for account-initializing transaction:
+          debit = {}
+          debit["account_id"] = @account.id
+          debit["transaktion_id"] = tr.id
+          debit["price"] = params["init"]
+          debit["qty"] = 1
+          debit["is_debit"] = true
+          Entry.new(debit).save
+          credit = debit
+          credit["account_id"] = openingBalancesAccount.id
+          credit["is_debit"] = false
+          Entry.new(credit).save
+        end
         format.html { redirect_to @account, notice: 'Account was successfully created.' }
         format.json {
          render json: {id: @account.id, friendlyName: friendlyName(@account), input: params[:input]}

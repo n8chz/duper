@@ -12,9 +12,17 @@
   <label>parent account</label>
   <%= autofill_inputs "account", nil, "account" %><br />
 
-  <%= f.submit %>
 
  </fieldset>
+
+ <fieldset>
+  <label for="init">opening balance</label>
+  <input name="init" class="money" />
+  <label for="date">as of</label>
+  <input name="date" id="date" />
+ </fieldset>
+
+  <%= f.submit :id => "post", :value => "create account" %>
 
 <% end %>
 

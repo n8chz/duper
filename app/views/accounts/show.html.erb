@@ -1,19 +1,46 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @account.name %>
-</p>
-
-<p>
-  <strong>Number:</strong>
-  <%= @account.number %>
-</p>
-
-<p>
-  <strong>Account:</strong>
-  <%= @account.account %>
-</p>
+<div class="instance">
+<table class="entries">
+ <caption><%= @account.account_pathname %></caption>
+ <thead>
+  <tr>
+   <th>date</th>
+   <th>entity</th>
+   <th>dr</th>
+   <th>cr</th>
+   <th>balance</th>
+  </tr>
+ </thead>
+ <tbody>
+  <% entries = Entry.where(account_id: @account.id).sort {|x, y| x.entry_date <=> y.entry_date} %>
+  <% bal = 0 %>
+  <% entries.each { |entry| %>
+   <% transaktion = Transaktion.find(entry.transaktion_id) %>
+   <% entity = Entity.find(transaktion.entity_id) if transaktion.entity_id %>
+   <% amt = entry.price*entry.qty/100 %>
+   <tr>
+    <% # kludge: %>
+    <td><a href="<%= transaktion_path transaktion %>"><%= transaktion.date.to_s.slice(0,10) %></a></td>
+    <td>
+     <% if entity %>
+      <a href="<%= entity_path entity %>"><%= entity.name %></a>
+     <% end %>
+    </td>
+    <% if entry.is_debit %>
+      <% bal += amt %>
+    <% else %>
+      <% bal -= amt %>
+    <% end %>
+    <% amtfix = "%.2f"%amt %>
+    <td class="money"><%= amtfix if entry.is_debit %></td>
+    <td class="money"><%= amtfix if not entry.is_debit %></td>
+    <td class="money"><%= "%.2f"%bal %></td>
+   </tr>
+  <% } %>
+ </tbody>
+</table>
 
 <%= link_to 'Edit', edit_account_path(@account) %> |
 <%= link_to 'Back', accounts_path %>
+</div>
+
