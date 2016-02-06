@@ -74,6 +74,11 @@ class TransaktionsController < ApplicationController
   # DELETE /transaktions/1
   # DELETE /transaktions/1.json
   def destroy
+    entries = Entry.where transaktion_id: @transaktion.id
+    # Why is the following not done automatically?
+    entries.each do |entry|
+     entry.destroy
+    end
     @transaktion.destroy
     respond_to do |format|
       format.html { redirect_to transaktions_url, notice: 'Transaktion was successfully destroyed.' }
