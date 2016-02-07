@@ -32,6 +32,7 @@ columnTotal = (columnClass) ->
   .reduce (x, y) -> x+y
 
 multiplicandBlur = ->
+  console.log "element blurred"
   terms = ($(this).attr "name").split /\]?\[/
   base = "##{terms[0]}_#{terms[1]}_"
   price = Number($(base+"price").val())
@@ -45,6 +46,13 @@ multiplicandBlur = ->
   difference = Math.abs(totalDebits - totalCredits)
   $("#imbalance").text difference.toFixed(2)
   imbalance = (difference > 0.015)
+  # Make sure all entries are tied to an account!
+  console.log "\nimbalance(0): "+imbalance
+  if !imbalance
+    imbalance = $(".entry_account").is ->
+      console.log "account number: "+$(this).val()
+      $(this).val() == "" 
+  console.log "imbalance(1): "+imbalance
   $("#post").attr "disabled", imbalance
 
 # Increment integer substrings of id and name attributes by 2
@@ -77,7 +85,8 @@ ready = -> # h/t http://stackoverflow.com/a/18770589/948073
       select: (event, ui) ->
         $(this).val ui.item.label
         $("##{$(this).attr "id"}_id").val ui.item.value
-        #$($(this).attr("id")).val ui.item.value
+        multiplicandBlur() # because apparently .autocomplete overrides element events
+        console.log "foo"
         false
 
   # Set up input elements for foreign keys as autofill, so we can see the
@@ -94,7 +103,7 @@ ready = -> # h/t http://stackoverflow.com/a/18770589/948073
     newFieldset.find(".autocomplete").each addAutocomplete
     # add same click listener that was added to original copy
     newFieldset.find(".plus").click plusClick
-    newFieldset.find(".multiplicand").blur multiplicandBlur
+    newFieldset.findfocusin multiplicandBlur
     newFieldset.find("input").first().focus()
 
   # Add event listeners to .plus buttons so their associated modal forms will be made visible.

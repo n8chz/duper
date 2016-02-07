@@ -13,3 +13,4 @@ TODO:
 
 * Make account fields required in transaktions/new
 
+* Make a "clear form" button for transaktions/new
