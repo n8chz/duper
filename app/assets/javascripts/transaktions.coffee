@@ -31,13 +31,7 @@ columnTotal = (columnClass) ->
     Number e.value
   .reduce (x, y) -> x+y
 
-multiplicandBlur = ->
-  console.log "element blurred"
-  terms = ($(this).attr "name").split /\]?\[/
-  base = "##{terms[0]}_#{terms[1]}_"
-  price = Number($(base+"price").val())
-  qty = Number($(base+"qty").val())
-  $(base+"debit").val Math.floor(100*price*qty+0.5)/100.0
+checkBalance = ->
   # enable form submission only if debits == credits
   totalDebits = columnTotal ".debit"
   $("#total_debits").text totalDebits.toFixed(2)
@@ -54,6 +48,15 @@ multiplicandBlur = ->
       $(this).val() == "" 
   console.log "imbalance(1): "+imbalance
   $("#post").attr "disabled", imbalance
+
+multiplicandBlur = ->
+  console.log "element blurred"
+  terms = ($(this).attr "name").split /\]?\[/
+  base = "##{terms[0]}_#{terms[1]}_"
+  price = Number($(base+"price").val())
+  qty = Number($(base+"qty").val())
+  $(base+"debit").val Math.floor(100*price*qty+0.5)/100.0
+  checkBalance()
 
 # Increment integer substrings of id and name attributes by 2
 incrementIndex = (fieldset) ->
@@ -85,7 +88,7 @@ ready = -> # h/t http://stackoverflow.com/a/18770589/948073
       select: (event, ui) ->
         $(this).val ui.item.label
         $("##{$(this).attr "id"}_id").val ui.item.value
-        multiplicandBlur() # because apparently .autocomplete overrides element events
+        checkBalance() # because apparently .autocomplete overrides element events
         console.log "foo"
         false
 
@@ -103,7 +106,7 @@ ready = -> # h/t http://stackoverflow.com/a/18770589/948073
     newFieldset.find(".autocomplete").each addAutocomplete
     # add same click listener that was added to original copy
     newFieldset.find(".plus").click plusClick
-    newFieldset.findfocusin multiplicandBlur
+    newFieldset.find(".multiplicand").blur multiplicandBlur
     newFieldset.find("input").first().focus()
 
   # Add event listeners to .plus buttons so their associated modal forms will be made visible.
@@ -119,6 +122,7 @@ ready = -> # h/t http://stackoverflow.com/a/18770589/948073
     # Make popups stay up only until done entering data
     $(this).submit ->
       $(this).closest("div").hide()
+      multiplicandBlur()
     $(this).keydown (event) ->
       if event.which == 27
         $(this).closest("div").hide()

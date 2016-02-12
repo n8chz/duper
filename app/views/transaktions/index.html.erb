@@ -15,8 +15,8 @@
   <tbody>
     <% @transaktions.each do |transaktion| %>
       <tr>
-        <td><%= transaktion.date %></td>
-        <td><%= transaktion.entity %></td>
+        <td><%= transaktion.date.strftime("%B %d, %Y") if transaktion.date %></td>
+        <td><strong><%= Entity.find(transaktion.entity_id).name if transaktion.entity_id %></strong></td>
         <td><%= transaktion.is_void %></td>
         <td><%= link_to 'Show', transaktion %></td>
         <td><%= link_to 'Edit', edit_transaktion_path(transaktion) %></td>
