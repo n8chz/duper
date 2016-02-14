@@ -5,12 +5,13 @@
 <table>
   <thead>
     <tr>
-      <th>Transaction</th>
-      <th>Item</th>
-      <th>Price</th>
-      <th>Qty</th>
-      <th>Is debit</th>
-      <th>Account</th>
+      <th>transaction</th>
+      <th>item</th>
+      <th>price</th>
+      <th>qty</th>
+      <th>debit?</th>
+      <th>net</th>
+      <th>account</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -21,11 +22,12 @@
         <td>
           <%= entry.transaktion_id %>
         </td>
-        <td><%= entry.item %></td>
+        <td><%= Item.find(entry.item_id).gendesc if entry.item_id %></td>
         <td><%= entry.price %></td>
         <td><%= entry.qty %></td>
         <td><%= entry.is_debit %></td>
-        <td><%= entry.account_id %></td>
+        <td><%= "%.2f"%entry.net_amt %></td>
+        <td><%= Account.find(entry.account_id).account_pathname if entry.account_id%></td>
         <td><%= link_to 'Show', entry %></td>
         <td><%= link_to 'Edit', edit_entry_path(entry) %></td>
         <td><%= link_to 'Destroy', entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>

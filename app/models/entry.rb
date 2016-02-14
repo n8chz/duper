@@ -4,9 +4,13 @@ class Entry < ActiveRecord::Base
   belongs_to :account
 
   def net_amt
-    pq = self.price*self.qty
-    pq *= -1 if not self.is_debit
-    pq
+    if self.price and self.qty
+      pq = self.price*self.qty/100
+      pq *= -1 if not self.is_debit
+      pq
+    else
+      0
+    end
   end
 
   def entry_date
