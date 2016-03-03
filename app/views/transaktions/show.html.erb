@@ -15,6 +15,7 @@
      <th>account</th>
      <th>debit amt</th>
      <th>credit amt</th>
+     <th></th>
     </tr>
    </thead>
    <tbody>
@@ -29,6 +30,11 @@
       <td><a href="<%= account_path account %>"><%= account.account_pathname %></a></td>
       <td class="money"><%= "%.2f"%(entry.price*entry.qty/100) if entry.is_debit %></td>
       <td class="money"><%= "%.2f"%(entry.price*entry.qty/100) if not entry.is_debit %></td>
+      <td>
+      <a href="<%= edit_entry_path entry %>">
+      edit
+      </a>
+      </td>
      </tr>
     <% end %>
    </tbody>

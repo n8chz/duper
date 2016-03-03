@@ -6,12 +6,14 @@ caption {
  font-weight: bold;
 }
 
+
 .column {
  vertical-align: top;
 }
 
 .balance {
  text-align: right;
+ vertical-align: bottom;
 }
 
 .total {
@@ -19,5 +21,14 @@ caption {
  border-top: 2px solid white;
 }
 
+a:link, a:visited {
+ color: yellow;
+ text-decoration: none;
+}
+
+a:hover {
+ color: black;
+ background-color: cyan;
+}
 
 

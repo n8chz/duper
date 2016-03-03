@@ -2,33 +2,42 @@
   <table>
    <caption>chart of accounts</caption>
    <tbody>
+    <% totals = [] %>
+    <tr>
     <% Account.columnize.map do |column| %>
      <td class="column">
       <table>
        <tbody>
         <% total = 0 %>
         <% column.each do |account| %>
+        <tr>
          <% path = account.account_pathname %>
          <% path_split = path.split("|") %>
          <% indent = path_split.length-1 %>
          <% bal = account.balance %>
          <% total += bal %>
-         <tr>
           <td>
            <span class="name" style="margin-left:<%= indent %>em">
             <a href="<%= account_path account.id %>"><%= path_split.pop %></a>
            </span>
           </td>
           <td class="balance"><%= "%.2f"%bal if bal != 0 %></td>
-         </tr>
+        </tr>
         <% end %>
-       </tbody>
-       <tbody class="total">
-        <tr><td></td><td class="balance"><%= "%.2f"%total %></td></tr>
+        <% totals.push total %>
        </tbody>
       </table>
      </td>
     <% end %>
+    </tr>
+    <tr class="total">
+     <td class="balance">
+      <%= "%.2f"%totals[0] %>
+     </td>
+     <td class="balance">
+      <%= "%.2f"%totals[1] %>
+     </td>
+    </tr>
    </tbody>
   </table>
 
