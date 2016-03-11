@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20160111040746) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "accounts", force: :cascade do |t|
     t.string   "name"
     t.string   "number"
@@ -21,7 +24,7 @@ ActiveRecord::Schema.define(version: 20160111040746) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "accounts", ["account_id"], name: "index_accounts_on_account_id"
+  add_index "accounts", ["account_id"], name: "index_accounts_on_account_id", using: :btree
 
   create_table "entities", force: :cascade do |t|
     t.string   "name"
@@ -52,9 +55,9 @@ ActiveRecord::Schema.define(version: 20160111040746) do
     t.datetime "updated_at",     null: false
   end
 
-  add_index "entries", ["account_id"], name: "index_entries_on_account_id"
-  add_index "entries", ["item_id"], name: "index_entries_on_item_id"
-  add_index "entries", ["transaktion_id"], name: "index_entries_on_transaktion_id"
+  add_index "entries", ["account_id"], name: "index_entries_on_account_id", using: :btree
+  add_index "entries", ["item_id"], name: "index_entries_on_item_id", using: :btree
+  add_index "entries", ["transaktion_id"], name: "index_entries_on_transaktion_id", using: :btree
 
   create_table "items", force: :cascade do |t|
     t.string   "barcode"
@@ -66,7 +69,7 @@ ActiveRecord::Schema.define(version: 20160111040746) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "items", ["unit_id"], name: "index_items_on_unit_id"
+  add_index "items", ["unit_id"], name: "index_items_on_unit_id", using: :btree
 
   create_table "transaktions", force: :cascade do |t|
     t.datetime "date"
@@ -76,7 +79,7 @@ ActiveRecord::Schema.define(version: 20160111040746) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "transaktions", ["entity_id"], name: "index_transaktions_on_entity_id"
+  add_index "transaktions", ["entity_id"], name: "index_transaktions_on_entity_id", using: :btree
 
   create_table "units", force: :cascade do |t|
     t.string   "unit"
@@ -92,4 +95,10 @@ ActiveRecord::Schema.define(version: 20160111040746) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "accounts", "accounts"
+  add_foreign_key "entries", "accounts"
+  add_foreign_key "entries", "items"
+  add_foreign_key "entries", "transaktions"
+  add_foreign_key "items", "units"
+  add_foreign_key "transaktions", "entities"
 end
