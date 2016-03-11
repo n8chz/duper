@@ -49,5 +49,6 @@ group :development do
 end
 
 gem 'rails_12factor'
-ruby '2.2.4'
+ruby '2.3.0'
+gem 'puma'
 
