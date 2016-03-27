@@ -43,9 +43,15 @@ checkBalance = ->
   # Make sure all entries are tied to an account!
   console.log "\nimbalance(0): "+imbalance
   if !imbalance
-    imbalance = $(".entry_account").is ->
-      console.log "account number: "+$(this).val()
-      $(this).val() == "" 
+    imbalance = $(".replic").is ->
+      account = $(this).find(".entry_account").val()
+      money = $(this).find(".money").val()
+      console.log " account ##{account}: $#{money}"
+      account == "" && money > 0
+#   imbalance = $(".entry_account").is ->
+#     console.log " #{$(this).attr('id')}: acct=#{$(this).prev().val()}, amt=#{$(this).nextAll('.money').val()}"
+#     console.log " #{$(this).nextAll('.money').attr('id')}"
+#     $(this).prev().val() == "" && $(this).nextAll(".money").val() > 0
   console.log "imbalance(1): "+imbalance
   $("#post").attr "disabled", imbalance
 
