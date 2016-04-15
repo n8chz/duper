@@ -5,6 +5,9 @@
 Essentially, a double-entry bookkeeping database, implemented with Ruby on Rails.
 Special attention is given to ease of data entry of dupermarket receipts.
 
+The "new transaction" screen can be tried out at https://guarded-everglades-94952.herokuapp.com/
+
+
 TODO:
 
 * Change /accounts view to display nice traditional two column chart of accounts
