@@ -21,7 +21,7 @@
         <td><%= item.brand %></td>
         <td><%= item.gendesc %></td>
         <td><%= item.size %></td>
-        <td><%= item.unit %></td>
+        <td><%= @units.find(item.unit_id).unit if item.unit_id %></td>
         <td><%= link_to 'Show', item %></td>
         <td><%= link_to 'Edit', edit_item_path(item) %></td>
         <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>

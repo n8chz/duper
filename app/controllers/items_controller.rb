@@ -6,6 +6,7 @@ class ItemsController < ApplicationController
   def index
     # h/t http://stackoverflow.com/a/3222639/948073
     @items = Item.all.reverse
+    @units = Unit.all
     genericResponse @items
   end
 
