@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Entries</h1>
+<h1>Journal</h1>
 
 <table>
   <thead>
@@ -9,25 +9,53 @@
       <th>item</th>
       <th>price</th>
       <th>qty</th>
-      <th>debit?</th>
-      <th>net</th>
+      <th>dr</th>
+      <th>cr</th>
       <th>account</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @entries.each do |entry| %>
+    <% prev_tx = "" %>
+    <% entries = Entry.all.sort_by(&:transaktion_id).sort_by(&:entry_date) %>
+    <% entries.each do |entry| %>
+      <% transaktion = Transaktion.find(entry.transaktion_id) %>
+      <% if entry.transaktion_id != prev_tx %>
+       <tr class="transaktion">
+        <td colspan="2">
+         <%= transaktion.date.to_s.slice(0,10) %>
+        </td>
+        <td colspan="6">
+         <% if transaktion.entity_id %>
+          <% entity = Entity.find(transaktion.entity_id) %>
+          <a href="<%= entity_path entity %>"><%= entity.name %></a>
+         <% end %>
+        </td>
+       </tr>
+      <% end %>
+      <% prev_tx = entry.transaktion_id %>
       <tr>
         <td>
-          <%= entry.transaktion_id %>
+          <a href="<%= transaktion_path transaktion %>"><%= entry.transaktion_id %></a>
         </td>
-        <td><%= Item.find(entry.item_id).gendesc if entry.item_id %></td>
-        <td><%= entry.price %></td>
-        <td><%= entry.qty %></td>
-        <td><%= entry.is_debit %></td>
-        <td><%= "%.2f"%entry.net_amt %></td>
-        <td><%= Account.find(entry.account_id).account_pathname if entry.account_id%></td>
+        <td>
+         <% if entry.item_id %>
+          <% item = Item.find(entry.item_id) %>
+          <a href="<%= item_path item %>"><%= item.gendesc %></a>
+         <% end %>
+        </td>
+        <td class="currency"><%= "%.2f"%(entry.price.to_f/100) %></td>
+        <td class="qty">@<%= entry.qty %></td>
+        <% net = entry.net_amt %>
+        <td class="currency net"><%= "%.2f"%net if net > 0 %></td>
+        <td class="currency net"><%= "%.2f"%(-net) if net < 0 %></td>
+        <td>
+	 <% if entry.account_id %>
+	  <% account = Account.find(entry.account_id) %>
+          <a href="<%= account_path account %>"><%= account.account_pathname %></a>
+	 <% end %>
+        </td>
         <td><%= link_to 'Show', entry %></td>
         <td><%= link_to 'Edit', edit_entry_path(entry) %></td>
         <td><%= link_to 'Destroy', entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -38,4 +66,4 @@
 
 <br>
 
-<%= link_to 'New Entry', new_entry_path %>
+<%= link_to 'New Transaktion', new_transaktion_path %>
