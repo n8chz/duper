@@ -8,7 +8,7 @@ module ApplicationHelper
   name = "#{model}" << (index ? "[#{index}]" : "") << "[#{fkey}_id]"
   id = "#{model}_#{index}_#{fkey}"
   source = "/#{fkey.pluralize}.json"
-  group = text_field nil, nil, :data => {source: source}, :class => "autocomplete", :id => id, :name => nil
+  group = text_field nil, nil, :data => {source: source}, :class => "autocomplete #{fkey}", :id => id, :name => nil
   group << (text_field nil, nil, :type => "hidden", :name => name, :id => "#{id}_id", :class => "#{model}_#{fkey}")
   group << (button_tag "+", :data => {destination: id, class: fkey}, :type => "button", :title => "create new #{fkey}", :class => "plus")
   group

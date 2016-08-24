@@ -19,3 +19,6 @@ TODO:
 * Make gendesc a typeahead/dropdown field in items/new (eventually, break off gendesc as a separate table)
 
 * Make a "clear form" button for transaktions/new
+
+* Export entities as vcards
+

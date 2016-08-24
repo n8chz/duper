@@ -1,0 +1,9 @@
+<h1>Accounts associated with item #<%= @item_id %></h1>
+<h2><%= @entries.length %> entries found</h2>
+<h3>Accounts associated with this item:</h3>
+<ul>
+<% @accounts.each do |acct| %>
+<li><%= acct.id %>. <%= acct.account_pathname %></li>
+<% end %>
+</ul>
+

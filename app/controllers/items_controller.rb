@@ -25,6 +25,25 @@ class ItemsController < ApplicationController
   def edit
   end
 
+  # GET /items/1/accounts
+  def accounts
+    @item_id = params[:id]
+    @item = Item.find(params[:id])
+    @entries = Entry.where(item_id: params[:id])
+    if @entries.length
+      @accounts = @entries.map {|entry| entry.account_id}.uniq.map {|id| Account.find(id)}
+    else
+      @accounts = []
+    end
+    id_path = @accounts.map do |acct|
+      {:id => acct[:id], :account_pathname => acct.account_pathname}
+    end
+    #puts @entries.length
+    respond_to do |format|
+      format.json { render json: id_path }
+    end
+  end
+
   # POST /items
   # POST /items.json
   def create

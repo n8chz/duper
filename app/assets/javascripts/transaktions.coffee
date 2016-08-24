@@ -114,6 +114,7 @@ ready = -> # h/t http://stackoverflow.com/a/18770589/948073
     newFieldset.find(".plus").click plusClick
     newFieldset.find(".multiplicand").blur multiplicandBlur
     newFieldset.find("input").first().focus()
+    newFieldset.find(".item").blur itemBlur
 
   # Add event listeners to .plus buttons so their associated modal forms will be made visible.
   $(".plus").click plusClick
@@ -138,6 +139,20 @@ ready = -> # h/t http://stackoverflow.com/a/18770589/948073
   $(".money").blur ->
     $(this).val Number($(this).val()).toFixed 2
 
+  # In cases when an item is specified, and previous transactions with that item
+  # are all associated with the same account, autofill account field.
+  itemBlur ->
+    # $(this).next().val contains the item number
+    $.ajax
+      error: (jqXHR, textStatus, errorThrown) ->
+        alert "AJAX error attempting to find accounts for item\n#{textStatus}"
+      method: "GET"
+      success: (data, textStatus, jqXHR) ->
+        alert data.length
+      url: "/items/#{$(this).next().val}/accounts.json"
+
 $(document).ready(ready);
 $(document).on('page:load', ready);
+
+
 

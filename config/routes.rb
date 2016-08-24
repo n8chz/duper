@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
   root "transaktions#new"
 
+  get "items/:id/accounts" => "items#accounts"
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
