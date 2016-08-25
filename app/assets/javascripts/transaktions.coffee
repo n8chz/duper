@@ -16,7 +16,7 @@ plusClick = ->
   idInput = $("##{dest}_id")
   # $(document).off "ajaxSuccess" # h/t http://stackoverflow.com/a/34929325/948073
   $(document).ajaxSuccess (event, xhr, settings) ->
-    console.log xhr.responseText
+    # console.log xhr.responseText
     obj = JSON.parse xhr.responseText
     if obj.input == dest
       # insert "friendly description" in visible field:
@@ -31,6 +31,26 @@ columnTotal = (columnClass) ->
     Number e.value
   .reduce (x, y) -> x+y
 
+# In cases when an item is specified, and previous transactions with that item
+# are all associated with the same account, autofill account field.
+itemBlur = ->
+  # $(this).next().val now contains the item number
+  item_id = $(this).next().val()
+  id = $(this).attr "id"
+  $.ajax
+    error: (jqXHR, textStatus, errorThrown) ->
+    method: "GET"
+    success: (data, textStatus, jqXHR) ->
+      # alert JSON.stringify data
+      if data.length == 1
+        datum = data.pop()
+        # place retrieved data in account fields
+        pathDest = id.replace "item", "account"
+        idDest = pathDest+"_id"
+        $("##{idDest}").val datum.id
+        $("##{pathDest}").val datum.account_pathname
+    url: "/items/#{item_id}/accounts.json"
+
 checkBalance = ->
   # enable form submission only if debits == credits
   totalDebits = columnTotal ".debit"
@@ -41,22 +61,21 @@ checkBalance = ->
   $("#imbalance").text difference.toFixed(2)
   imbalance = (difference > 0.015)
   # Make sure all entries are tied to an account!
-  console.log "\nimbalance(0): "+imbalance
+  # console.log "\nimbalance(0): "+imbalance
   if !imbalance
     imbalance = $(".replic").is ->
       account = $(this).find(".entry_account").val()
       money = $(this).find(".money").val()
-      console.log " account ##{account}: $#{money}"
+      # console.log " account ##{account}: $#{money}"
       account == "" && money > 0
 #   imbalance = $(".entry_account").is ->
 #     console.log " #{$(this).attr('id')}: acct=#{$(this).prev().val()}, amt=#{$(this).nextAll('.money').val()}"
 #     console.log " #{$(this).nextAll('.money').attr('id')}"
 #     $(this).prev().val() == "" && $(this).nextAll(".money").val() > 0
-  console.log "imbalance(1): "+imbalance
+  # console.log "imbalance(1): "+imbalance
   $("#post").attr "disabled", imbalance
 
 multiplicandBlur = ->
-  console.log "element blurred"
   terms = ($(this).attr "name").split /\]?\[/
   base = "##{terms[0]}_#{terms[1]}_"
   price = Number($(base+"price").val())
@@ -95,7 +114,6 @@ ready = -> # h/t http://stackoverflow.com/a/18770589/948073
         $(this).val ui.item.label
         $("##{$(this).attr "id"}_id").val ui.item.value
         checkBalance() # because apparently .autocomplete overrides element events
-        console.log "foo"
         false
 
   # Set up input elements for foreign keys as autofill, so we can see the
@@ -115,6 +133,7 @@ ready = -> # h/t http://stackoverflow.com/a/18770589/948073
     newFieldset.find(".multiplicand").blur multiplicandBlur
     newFieldset.find("input").first().focus()
     newFieldset.find(".item").blur itemBlur
+    newFieldset.find(".money").blur moneyBlur
 
   # Add event listeners to .plus buttons so their associated modal forms will be made visible.
   $(".plus").click plusClick
@@ -136,20 +155,10 @@ ready = -> # h/t http://stackoverflow.com/a/18770589/948073
 
   $(".multiplicand").blur multiplicandBlur
 
+  $(".item").blur itemBlur
+
   $(".money").blur ->
     $(this).val Number($(this).val()).toFixed 2
-
-  # In cases when an item is specified, and previous transactions with that item
-  # are all associated with the same account, autofill account field.
-  itemBlur ->
-    # $(this).next().val contains the item number
-    $.ajax
-      error: (jqXHR, textStatus, errorThrown) ->
-        alert "AJAX error attempting to find accounts for item\n#{textStatus}"
-      method: "GET"
-      success: (data, textStatus, jqXHR) ->
-        alert data.length
-      url: "/items/#{$(this).next().val}/accounts.json"
 
 $(document).ready(ready);
 $(document).on('page:load', ready);
