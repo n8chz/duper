@@ -1,69 +1,60 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @entity.name %>
-</p>
+<div>
 
-<p>
-  <strong>No:</strong>
-  <%= @entity.no %>
-</p>
+ <p class="address">
+  <strong><%= @entity.name %></strong>
+  <% if @entity.street != "" %>
+   <br />
+   <%= "#{@entity.no} #{@entity.frac} #{@entity.street}" %><br />
+  <% end %>
+  <% if @entity.unit != "" %>
+   <%= @entity.unit %><br /> 
+  <% end %>
+  <% if @entity.box != "" %>
+  <%= "PO Box #{@entity.box}" %><br />
+  <% end %>
+  <% if (@entity.city) != "" %>
+   <%= @entity.city %><%= ", #{@entity.polsub}" if @entity.polsub != "" %>
+   <%= " #{@entity.postal}" if @entity.postal != "" %>
+  <% end %>
+  <% if @entity.nation != "" %>
+   <br />
+   <%= @entity.nation %>
+  <% end %>
+ </p>
 
-<p>
-  <strong>Frac:</strong>
-  <%= @entity.frac %>
-</p>
+ <% if @entity.phone || @entity.email || @entity.url %>
+  <p>
+   <% if @entity.phone != "" %>
+    <%= @entity.phone %>
+    <br />
+   <% end %>
+   <% if @entity.email != "" %>
+    <%= mail_to @entity.email %>
+    <br />
+   <% end %>
+   <% if @entity.url != "" %>
+    <%= link_to @entity.url, @entity.url %>
+    <br />
+   <% end %>
+  </p>
+ <% end %>
 
-<p>
-  <strong>Unit:</strong>
-  <%= @entity.unit %>
-</p>
+</div>
 
-<p>
-  <strong>Street:</strong>
-  <%= @entity.street %>
-</p>
+<% # TODO place list of transactions with this entity here %>
+<div>
 
-<p>
-  <strong>Box:</strong>
-  <%= @entity.box %>
-</p>
+ <ul>
+ <% @transaktions.where(entity_id: @entity.id).order(:date).reverse.each do |transaktion| %>
+  <li>
+   <%= link_to transaktion.date, transaktion_path(transaktion) %>
+  </li>
+ <% end %>
+ </ul>
 
-<p>
-  <strong>City:</strong>
-  <%= @entity.city %>
-</p>
-
-<p>
-  <strong>Polsub:</strong>
-  <%= @entity.polsub %>
-</p>
-
-<p>
-  <strong>Postal:</strong>
-  <%= @entity.postal %>
-</p>
-
-<p>
-  <strong>Nation:</strong>
-  <%= @entity.nation %>
-</p>
-
-<p>
-  <strong>Phone:</strong>
-  <%= @entity.phone %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @entity.email %>
-</p>
-
-<p>
-  <strong>Url:</strong>
-  <%= @entity.url %>
-</p>
+</div>
 
 <%= link_to 'Edit', edit_entity_path(@entity) %> |
 <%= link_to 'Back', entities_path %>
