@@ -22,6 +22,7 @@ class TransaktionsController < ApplicationController
     @items = Item.all
     @units = Unit.all
     @accounts = Account.all
+    @page_title
   end
 
   # GET /transaktions/1/edit
@@ -36,14 +37,17 @@ class TransaktionsController < ApplicationController
     @transaktion.save # see http://stackoverflow.com/a/2618902/948073 
     params["entry"].keys.each do |index|
       entry = params["entry"][index]
-      entry["qty"] = 1 if not entry["qty"]
-      # price is an integer field, measured in pennies...
-      is_debit = (index.to_i%2 != 0)
-      entry["is_debit"] = is_debit
-      price = (100.0*(entry["price"].to_f)+0.5).to_s
-      entry["price"] = price
-      entry["transaktion_id"] = @transaktion.id
-      Entry.new(entry).save
+      puts entry
+      if entry["account_id"]
+	  entry["qty"] = 1 if not entry["qty"]
+	  # price is an integer field, measured in pennies...
+	  is_debit = (index.to_i%2 != 0)
+	  entry["is_debit"] = is_debit
+	  price = (100.0*(entry["price"].to_f)+0.5).to_s
+	  entry["price"] = price
+	  entry["transaktion_id"] = @transaktion.id
+	  Entry.new(entry).save
+      end
     end
 
     respond_to do |format|

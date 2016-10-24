@@ -25,7 +25,7 @@
   <tbody>
     <% @entities.each do |entity| %>
       <tr>
-        <td><%= entity.name %></td>
+        <td><%= link_to entity.name, entity_path(entity) %></td>
         <td><%= entity.no %></td>
         <td><%= entity.frac %></td>
         <td><%= entity.unit %></td>

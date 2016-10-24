@@ -60,3 +60,6 @@ gem 'rails_12factor'
 ruby '2.3.0'
 gem 'puma'
 
+gem 'devise'
+# see http://stackoverflow.com/a/6080131
+gem 'rake'

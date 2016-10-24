@@ -12,6 +12,12 @@ TODO:
 
 * Fix bug in entries#index:  `Showing /var/www/ruby/rails/duper/app/views/entries/index.html.erb where line #21 raised: comparison of ActiveSupport::TimeWithZone with nil failed`
 
+* Add code to transaktions#new controller to flip negative entries to opposite column
+
+* Make option to delete entries, but only if more than one is displayed
+
+* Add memo field to entries, transactions, possibly other models
+
 * Pre-fill expense account column with "best guess" based on gendesc
 
 * Make gendesc a typeahead/dropdown field in items/new (eventually, break off gendesc as a separate table)

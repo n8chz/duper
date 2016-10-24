@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160111040746) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20161004235607) do
 
   create_table "accounts", force: :cascade do |t|
     t.string   "name"
@@ -24,7 +21,7 @@ ActiveRecord::Schema.define(version: 20160111040746) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "accounts", ["account_id"], name: "index_accounts_on_account_id", using: :btree
+  add_index "accounts", ["account_id"], name: "index_accounts_on_account_id"
 
   create_table "entities", force: :cascade do |t|
     t.string   "name"
@@ -55,9 +52,9 @@ ActiveRecord::Schema.define(version: 20160111040746) do
     t.datetime "updated_at",     null: false
   end
 
-  add_index "entries", ["account_id"], name: "index_entries_on_account_id", using: :btree
-  add_index "entries", ["item_id"], name: "index_entries_on_item_id", using: :btree
-  add_index "entries", ["transaktion_id"], name: "index_entries_on_transaktion_id", using: :btree
+  add_index "entries", ["account_id"], name: "index_entries_on_account_id"
+  add_index "entries", ["item_id"], name: "index_entries_on_item_id"
+  add_index "entries", ["transaktion_id"], name: "index_entries_on_transaktion_id"
 
   create_table "items", force: :cascade do |t|
     t.string   "barcode"
@@ -69,7 +66,7 @@ ActiveRecord::Schema.define(version: 20160111040746) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "items", ["unit_id"], name: "index_items_on_unit_id", using: :btree
+  add_index "items", ["unit_id"], name: "index_items_on_unit_id"
 
   create_table "transaktions", force: :cascade do |t|
     t.datetime "date"
@@ -79,7 +76,7 @@ ActiveRecord::Schema.define(version: 20160111040746) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "transaktions", ["entity_id"], name: "index_transaktions_on_entity_id", using: :btree
+  add_index "transaktions", ["entity_id"], name: "index_transaktions_on_entity_id"
 
   create_table "units", force: :cascade do |t|
     t.string   "unit"
@@ -95,10 +92,22 @@ ActiveRecord::Schema.define(version: 20160111040746) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "accounts", "accounts"
-  add_foreign_key "entries", "accounts"
-  add_foreign_key "entries", "items"
-  add_foreign_key "entries", "transaktions"
-  add_foreign_key "items", "units"
-  add_foreign_key "transaktions", "entities"
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
 end

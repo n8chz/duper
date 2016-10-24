@@ -20,9 +20,10 @@
  <fieldset id="payments">
   <legend>payments</legend>
 
-  <div>
+  <div id="credits">
   <!-- data-index even for credit, odd for debit -->
-  <fieldset class="payment_method replic" id="payment_method">
+  <!-- <fieldset class="payment_method replic" id="payment_method"> -->
+  <fieldset class="payment_method entry replic">
 
    <!-- account -->
    <label>paid from account</label>
@@ -42,9 +43,10 @@
   <legend>purchaes this transaktion</legend>
   <table><thead>
    <tr><th>item</th><th>price</th><th>qty</th><th>account</th><th>debit amount</th></tr>
-  </thead><tbody>
+  </thead><tbody id="debits">
 
-  <tr id="item" class="entry_item replic">
+  <!-- <tr id="item" class="entry_item replic"> -->
+  <tr class="entry_item entry replic">
    <!-- item -->
    <!-- TODO: increment numbers in id attributes, too -->
    <!-- TODO: blank out filled-in fields, too -->

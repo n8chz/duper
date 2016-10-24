@@ -22,7 +22,7 @@
 
 <p>
   <strong>Unit:</strong>
-  <%= @item.unit %>
+  <%= Unit.find(@item.unit_id).unit %>
 </p>
 
 <%= link_to 'Edit', edit_item_path(@item) %> |
