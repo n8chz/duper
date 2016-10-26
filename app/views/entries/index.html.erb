@@ -18,7 +18,7 @@
 
   <tbody>
     <% prev_tx = "" %>
-    <% entries = Entry.all.sort_by(&:transaktion_id).sort_by(&:entry_date) %>
+    <% entries = Entry.all.sort_by(&:transaktion_id) %>
     <% entries.each do |entry| %>
       <% transaktion = Transaktion.find(entry.transaktion_id) %>
       <% if entry.transaktion_id != prev_tx %>

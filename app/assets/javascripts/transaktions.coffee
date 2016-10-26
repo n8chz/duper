@@ -77,7 +77,20 @@ checkBalance = ->
   # disable post button if posting criteria are not met
   $("#post").attr "disabled", imbalance
 
+arithmEval = (exp) ->
+  # remove any whitespace characters:
+  exp = exp.split(/\s/).join("")
+  # verify that only legal characters remain:
+  if exp.match /^[0-9+\-*\/().]+$/
+    console.log "#{exp} -> #{eval exp}"
+    # consider the string sanitized, use eval function:
+    eval exp
+  else
+    # something weird has been included
+    alert "?"
+
 multiplicandBlur = ->
+  $(this).val arithmEval $(this).val()
   terms = ($(this).attr "name").split /\]?\[/
   base = "##{terms[0]}_#{terms[1]}_"
   price = Number($(base+"price").val())
