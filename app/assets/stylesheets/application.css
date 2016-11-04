@@ -30,3 +30,27 @@
  padding: 1em;
 }
 
+nav {
+ border-radius: 10px;
+ padding: 0.5em;
+ background-color: white;
+}
+
+.navlink {
+ background-color: #B5F2B7;
+ font-weight: bold;
+ border: 2px solid black;
+ display: inline-block;
+ border-radius: 10px;
+ padding-left: 0.5em;
+ padding-right: 0.5em;
+}
+
+.navlink a:link, .navlink a:visited {
+ color: black;
+}
+
+.navlink a:hover {
+ color: white;
+}
+

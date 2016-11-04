@@ -7,6 +7,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <nav>
+   <span class="navlink"><%= link_to "journal", "/entries" %></span> 
+   <span class="navlink"><%= link_to "balance sheet", "/accounts" %></span>
+   <span class="navlink"><%= link_to "new transaction", "/transaktions/new" %></span> 
+  </nav>
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
 
