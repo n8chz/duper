@@ -178,5 +178,8 @@ ready = -> # h/t http://stackoverflow.com/a/18770589/948073
 $(document).ready(ready);
 $(document).on('page:load', ready);
 
+# This became necessary once app/views/layouts/application.html.erb deployed.
+# **I don't understand why.**
+ready
 
 
