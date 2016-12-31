@@ -115,6 +115,8 @@ incrementIndex = (fieldset) ->
 
 ready = -> # h/t http://stackoverflow.com/a/18770589/948073
 
+  $("h1").text "enter new purchase transaction" # see if we got this far
+
   $("#date").datepicker
     changeMonth: true
     changeYear: true
@@ -175,11 +177,9 @@ ready = -> # h/t http://stackoverflow.com/a/18770589/948073
   $(".money").blur ->
     $(this).val Number($(this).val()).toFixed 2
 
-$(document).ready(ready);
-$(document).on('page:load', ready);
 
-# This became necessary once app/views/layouts/application.html.erb deployed.
-# **I don't understand why.**
-ready
+$(document).ready ready 
 
+# see http://guides.rubyonrails.org/working_with_javascript_in_rails.html#page-change-events
+$(document).on 'turbolinks:load', ready 
 
