@@ -1,6 +1,8 @@
 # duper
 
-===recordkeeping for dupermarket transactions===
+## Note: Duper has been superseded by the much more refined ["ettal"](https://gitlab.com/n8chz/ettal)
+
+## recordkeeping for dupermarket transactions
 
 Essentially, a double-entry bookkeeping database, implemented with Ruby on Rails.
 Special attention is given to ease of data entry of dupermarket receipts.
